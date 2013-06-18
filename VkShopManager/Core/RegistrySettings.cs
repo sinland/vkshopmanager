@@ -53,6 +53,22 @@ namespace VkShopManager.Core
             }
         }
 
+        public bool ClearReportsOnExit {
+            get
+            {
+                bool val = false;
+                var data = GetValue("ClearReportsOnExit");
+                if (data != null)
+                {
+                    Boolean.TryParse(data.ToString(), out val);
+                }
+                return val;
+            }
+            set
+            {
+                SetValue("ClearReportsOnExit", value, RegistryValueKind.String);
+            } 
+        }
         public string AccessToken
         {
             get { return GetValue("AccessToken") == null ? "" : GetValue("AccessToken").ToString(); }

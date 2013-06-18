@@ -229,20 +229,20 @@ namespace VkShopManager
 
         private void ApplicationExitEventHandler(object sender, ExitEventArgs e)
         {
-//            if (this.ShowQuestion("Очистить каталог экспорта отчетов?"))
-//            {
-//                foreach (var file in Directory.GetFiles(m_settings.ReportsPath, "*.*", SearchOption.TopDirectoryOnly))
-//                {
-//                    try
-//                    {
-//                        File.Delete(file);
-//                    }
-//                    catch
-//                    {
-//                        
-//                    }
-//                }
-//            }
+            if (m_settings.ClearReportsOnExit)
+            {
+                foreach (var file in Directory.GetFiles(m_settings.ReportsPath, "*.*", SearchOption.TopDirectoryOnly))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        
+                    }
+                }
+            }
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="VkShopManager.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Настройки" Height="267" Width="568" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        Title="Настройки" Height="292" Width="568" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -16,6 +16,7 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="12,86,0,0" Name="tbWorkgroupId" VerticalAlignment="Top" Width="150" />
                     <Label Content="Срок годности токена:" Height="28" Margin="10,118,0,0" Name="label3" VerticalAlignment="Top" HorizontalAlignment="Left" />
                     <Label Content="..." Height="28" HorizontalAlignment="Left" Margin="143,118,0,0" Name="lblTokenLifeTime" VerticalAlignment="Top" />
+                    <CheckBox Content="Очистить каталог с отчетами при выходе из приложения" Height="16" HorizontalAlignment="Left" Margin="12,152,0,0" Name="cbEnableAutoClear" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
             <TabItem Header="Скрытые альбомы" Name="tabItem2">

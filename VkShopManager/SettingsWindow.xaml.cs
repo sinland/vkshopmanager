@@ -46,6 +46,7 @@ namespace VkShopManager
             tbGalleryPath.IsReadOnly = true;
             tbWorkgroupId.Text = m_settings.WorkGroupId.ToString();
             lblTokenLifeTime.Content = m_settings.ExpirationDate.ToString();
+            cbEnableAutoClear.IsChecked = m_settings.ClearReportsOnExit;
 
             var bg = new BackgroundWorker();
             bg.DoWork += (sender, args) =>
@@ -111,6 +112,7 @@ namespace VkShopManager
             
             m_settings.WorkGroupId = gid;
             m_result = Result.Ok;
+            m_settings.ClearReportsOnExit = cbEnableAutoClear.IsChecked.HasValue && cbEnableAutoClear.IsChecked.Value;
 
             Close();
         }
