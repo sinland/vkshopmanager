@@ -32,7 +32,7 @@ namespace VkShopManager
         
         private string m_statusBackup;
         private Cursor m_cursorBackup;
-        private RegistrySettings m_settings;
+        private readonly RegistrySettings m_settings;
 
         public enum Result
         {

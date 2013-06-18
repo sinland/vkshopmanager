@@ -12,6 +12,8 @@ namespace VkShopManager.Domain
     {
         private int m_accountTypeId;
         private DeliveryType m_deliveryType;
+        private ManagedRate m_comissionRate;
+
         private int m_deliveryTypeId;
 
         public virtual int Id { get; set; }
@@ -24,6 +26,7 @@ namespace VkShopManager.Domain
             set
             {
                 m_accountTypeId = value;
+                m_comissionRate = null;
                 OnPropertyChanged("AccountTypeId");
             }
         }
@@ -64,7 +67,17 @@ namespace VkShopManager.Domain
 
             return m_deliveryType;
         }
+        public ManagedRate GetCommissionInfo()
+        {
+            if (m_comissionRate == null)
+            {
+                var mgr = Core.Repositories.DbManger.GetInstance();
+                var repo = mgr.GetRatesRepository();
+                m_comissionRate = repo.GetById(AccountTypeId);
+            }
 
+            return m_comissionRate;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
