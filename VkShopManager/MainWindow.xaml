@@ -1,0 +1,101 @@
+﻿<Window x:Class="VkShopManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vcore="clr-namespace:VkShopManager.Core.VisualHelpers"
+        Title="Совместные покупки - Снежинск" Height="442" Width="1042" WindowStyle="SingleBorderWindow" Margin="0" Left="Auto" Icon="Images/photo_album.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition />
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TreeView HorizontalContentAlignment="Left" Padding="5" Margin="3,2,2,3" Grid.Row="1" Name="AlbumsView" TreeViewItem.Selected="AlbumsView_OnSelected" BorderBrush="#FF9A9A9A" FontSize="13">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <EventSetter Event="PreviewMouseRightButtonDown" Handler="AlbumsView_OnPreviewMouseRightButtonDown"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="AlbumsViewItem_MouseDoubleClick" HandledEventsToo="True"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2" Height="23" Name="AppStatus" VerticalAlignment="Bottom" BorderBrush="#FFCBCBCB" BorderThickness="1">
+            <Label Name="AppStatusText" Padding="0,3,0,0" Content="Ready" Height="23" VerticalAlignment="Center"></Label>
+            <StatusBar.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0" />
+                    <GradientStop Color="#FFD8D8D8" Offset="1" />
+                </LinearGradientBrush>
+            </StatusBar.Background>
+        </StatusBar>
+        <Menu Grid.ColumnSpan="2" Grid.Row="0" Height="28" Name="MainMenu" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="0" BorderThickness="1" BorderBrush="#FFCECECE" FontSize="13">
+            <MenuItem Header="Файл" Padding="10,4,5,5">
+                <MenuItem Header="Настройки" Name="cmdFileOpenSettings" Click="CmdFileOpenSettings_OnClick"  />
+                <MenuItem Header="Обновить список" Name="CmdFileGetStoredAlbums" Click="CmdFileGetStoredAlbums_OnClick"  />
+                <MenuItem Header="Загрузить альбомы" Name="CmdFileLoadAlbums" Click="CmdFileLoadAlbums_OnClick"  />
+                <MenuItem Header="Список покупателей" Name="cmdOpenCustomrsList" Click="cmdOpenCustomrsList_OnClick"  />
+                <Separator />
+                <MenuItem Header="Выход" Name="CmdFileExit" Click="CmdFileExit_OnClick" />
+                <MenuItem Header="Test" Click="CmdTest_OnClick" Visibility="Visible" />
+            </MenuItem>
+            <MenuItem Header="Альбом" Padding="10,4,5,5">
+                <MenuItem Header="Загрузить данные" Name="cmdAlbumLoadData" Click="cmdAlbumLoadData_OnClick"  />
+                <MenuItem Header="Добавить товар" Name="cmdAlbumAddProduct" Click="cmdAlbumAddProduct_OnClick"  />
+                <Separator/>
+                <MenuItem Header="Отображать неполные позиции" Name="cmdShowPartialPositions" Click="cmdShowHalfPositions_OnClick" IsCheckable="True"  />
+                <MenuItem Header="Отображать пустые позиции" Name="cmdShowEmptyPositions" Click="cmdShowEmptyPositions_OnClick" IsCheckable="True"  />
+                <Separator/>
+                <MenuItem Header="Документы" >
+                    <MenuItem Header="Лист доставки" Click="cmdPrintDeliveryListClickEventHandler"/>
+                    <MenuItem Header="Отчет по разделу" Click="btnExportCurrent_Click"/>
+                 </MenuItem>
+                <Separator/>
+                <MenuItem Header="Удалить альбом" Name="cmdAlbumDelete" Click="cmdAlbumDelete_OnClick"  />
+                <MenuItem Header="Скрыть альбом" Name="cmdAlbumHide" Click="cmdAlbumHide_OnClick"  />
+            </MenuItem>
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE5E5E5" Offset="0" />
+                    <GradientStop Color="White" Offset="1" />
+                </LinearGradientBrush>
+            </Menu.Background>
+        </Menu>
+<!--        <Button Visibility="Hidden" Name="btnExportCurrent" Grid.Row="1" Grid.Column="1" Width="30" BorderThickness="1" Background="Transparent" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3" Click="btnExportCurrent_Click" >-->
+<!--            <Image Source="Images/printer.png"></Image>-->
+<!--        </Button>-->
+        <Label Content="Поиск: " Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 3, 0, 0"></Label>
+        <ComboBox Grid.Column="1" Grid.Row="1" Height="23" Margin="50,3,0,0" Name="cbSearchFieldType" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150" />
+        <TextBox Name="tbSearchBox" Width="200" Grid.Row="1" Grid.Column="1" Height="23" Margin="210,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextChanged="SearchTextBox_TextChanged"/>
+        
+        <ListView Grid.Column="1" Grid.Row="1" Name="lvDetails" Padding="5" Margin="3,30,2,3" FontSize="13" SelectionChanged="lvDetails_SelectionChanged" BorderBrush="#FFCBCBCB">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Status}" Value="OK" >
+                            <Setter Property="Background" Value="LightGreen"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Status}" Value="Оплачен" >
+                            <Setter Property="Background" Value="LightGreen"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Status}" Value="Частично оплачен" >
+                            <Setter Property="Background" Value="DarkOrange"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsSelected}" Value="True" >
+                            <Setter Property="BorderThickness" Value="1"></Setter>
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <EventSetter Event="MouseDoubleClick" Handler="DetailsListViewItem_MouseDoubleClick" HandledEventsToo="True"/>
+                    <Setter Property="Foreground" Value="Black"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView AllowsColumnReorder="False"/>
+            </ListView.View>
+        </ListView>
+        
+    </Grid>
+    
+</Window>

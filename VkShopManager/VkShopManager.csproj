@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{133083B1-C98D-47A9-BE6B-112C581802BB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VkShopManager</RootNamespace>
+    <AssemblyName>VkShopManager</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>folder_accept.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\Libraries\Log4Net\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\VkExample1\Libs\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\VkExample1\Libs\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="CommentsViewWindow.xaml.cs">
+      <DependentUpon>CommentsViewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Core\ReportsExportFormatter.cs" />
+    <Compile Include="Core\VisualHelpers\PaymentsListViewItem.cs" />
+    <Compile Include="PaymentPropertiesWindow.xaml.cs">
+      <DependentUpon>PaymentPropertiesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AskExportSettingsWindow.xaml.cs">
+      <DependentUpon>AskExportSettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeAmountWindow.xaml.cs">
+      <DependentUpon>ChangeAmountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommentCheckWindow.xaml.cs">
+      <DependentUpon>CommentCheckWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Core\CommonExtensions.cs" />
+    <Compile Include="Core\FileDownloader.cs" />
+    <Compile Include="Core\OrderOperation.cs" />
+    <Compile Include="Core\PlainTextExportFormatter.cs" />
+    <Compile Include="Core\Repositories\PaymentsRepository.cs" />
+    <Compile Include="Core\Repositories\RatesRepository.cs" />
+    <Compile Include="Core\Repositories\CommentsRepository.cs" />
+    <Compile Include="Core\RegistrySettings.cs" />
+    <Compile Include="Core\VisualHelpers\BgWorkerException.cs" />
+    <Compile Include="Core\VisualHelpers\CurrencyVisualiser.cs" />
+    <Compile Include="Core\VisualHelpers\CustomerListViewItem.cs" />
+    <Compile Include="Core\VisualHelpers\CustomListViewItem.cs" />
+    <Compile Include="Core\VisualHelpers\ISelectable.cs" />
+    <Compile Include="Core\VisualHelpers\OrderListViewItem.cs" />
+    <Compile Include="Core\VisualHelpers\ProductCustomerListViewItem.cs" />
+    <Compile Include="Core\VisualHelpers\ProductListViewItem.cs" />
+    <Compile Include="Core\WordExportFormatter.cs" />
+    <Compile Include="CustomerEditWindow.xaml.cs">
+      <DependentUpon>CustomerEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Core\ExportFormatterBase.cs" />
+    <Compile Include="CustomersSelectionWindow.xaml.cs">
+      <DependentUpon>CustomersSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\ManagedRate.cs" />
+    <Compile Include="Domain\ParsedComment.cs" />
+    <Compile Include="Domain\Payment.cs" />
+    <Compile Include="MainWindow.xaml.Handlers.cs" />
+    <Compile Include="OrderEditWindow.xaml.cs">
+      <DependentUpon>OrderEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductCustomersView.xaml.cs">
+      <DependentUpon>ProductCustomersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductEditWindow.xaml.cs">
+      <DependentUpon>ProductEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ReportsViewerWindow.xaml.cs">
+      <DependentUpon>ReportsViewerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WaitingWindow.xaml.cs">
+      <DependentUpon>WaitingWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CommentsViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PaymentPropertiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AskExportSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangeAmountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommentCheckWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomerEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomersSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Repositories\AlbumsRepository.cs" />
+    <Compile Include="Core\Repositories\DbManger.cs" />
+    <Compile Include="Core\Repositories\CustomersRepository.cs" />
+    <Compile Include="Core\InternalTests.cs" />
+    <Compile Include="Core\Repositories\OrderRepository.cs" />
+    <Compile Include="Core\Repositories\ProductRepository.cs" />
+    <Compile Include="Core\VkObjectsWrapper.cs" />
+    <Compile Include="Domain\Album.cs" />
+    <Compile Include="Domain\Customer.cs" />
+    <Compile Include="Domain\Order.cs" />
+    <Compile Include="Domain\Product.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="OrderEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProductCheckWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProductCustomersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProductEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReportsViewerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WaitingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ProductCheckWindow.xaml.cs">
+      <DependentUpon>ProductCheckWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="Libs\nhibernate-configuration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Libs\nhibernate-mapping.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="Templates\CustomerOrderTemplate.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\DeliveryListTemplate.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\settings.png" />
+    <Resource Include="Images\printer.png" />
+    <Resource Include="readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <EmbeddedResource Include="Mappings\Payment.hbm.xml" />
+    <Resource Include="Images\coins.png" />
+    <Resource Include="Images\comment.png" />
+    <Resource Include="Images\up.png" />
+    <Resource Include="Images\down.png" />
+    <Resource Include="Images\search.png" />
+    <Content Include="vkshpmgr.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VkExample1\VkApiNet.csproj">
+      <Project>{41CBF44A-0F5E-41C3-8EDA-3398CB2D1B5C}</Project>
+      <Name>VkApiNet</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Customers.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Albums.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Orders.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Products.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\group.png" />
+    <Resource Include="Images\cart.png" />
+    <Resource Include="Images\inbox.png" />
+    <Resource Include="Images\accept.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\skip.png" />
+    <Resource Include="Images\default.png" />
+    <Resource Include="Images\user.png" />
+    <Resource Include="Images\package.png" />
+    <Resource Include="Images\photo_album.png" />
+    <Resource Include="folder_accept.ico" />
+    <EmbeddedResource Include="Mappings\ParsedComments.hbm.xml" />
+    <EmbeddedResource Include="Mappings\ManagedRates.hbm.xml" />
+    <Resource Include="Images\disk.png" />
+    <None Include="Libs\Iesi.Collections.dll" />
+    <None Include="Libs\log4net.dll" />
+    <None Include="Libs\NHibernate.dll" />
+    <None Include="Libs\nunit.framework.dll" />
+    <None Include="Libs\nunit.framework.xml" />
+    <None Include="Libs\SQLite.Interop.dll" />
+    <None Include="Libs\System.Data.SQLite.dll" />
+    <Content Include="SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reports\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

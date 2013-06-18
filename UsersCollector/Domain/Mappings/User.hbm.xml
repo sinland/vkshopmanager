@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="UsersCollector" namespace="UsersCollector.Domain">
+  <class name="User" lazy="false" table="vk_users">
+    <id name="Id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="VkId" column="vk_id" not-null="true" type="Int64" unique="true"/>
+    <property name="FirstName" column="first_name" not-null="true"/>
+    <property name="LastName" column="last_name" not-null="true"/>
+    <property name="Sex" column="sex" not-null="true"/>
+    <property name="MobilePhone" column="mobile_phone"/>
+    <property name="HomePhone" column="home_phone"/>
+    <property name="BirthYear" column="birth_year"/>
+  </class>
+</hibernate-mapping>

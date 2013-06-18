@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="VkShopManager" namespace="VkShopManager.Domain">
+  <class name="ParsedComment" lazy="false" table="parsed_comments">
+    <id name="Id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="VkId" column="vk_id" not-null="true" type="Int64"/>
+    <property name="UniqueKey" column="unique_key" not-null="true"/>
+    <property name="ParsingDate" column="parsing_date" not-null="true"/>
+    <property name="Message" column="message" type="string" />
+    <property name="SenderName" column="sender" type="string" />
+    <property name="PostingDate" column="posting_date" type="string" />
+  </class>
+</hibernate-mapping>

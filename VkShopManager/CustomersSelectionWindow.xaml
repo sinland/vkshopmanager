@@ -1,0 +1,10 @@
+﻿<Window x:Class="VkShopManager.CustomersSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Покупатели" Height="412" Width="310" FontSize="13" WindowStartupLocation="CenterOwner" MaxWidth="310">
+    <Grid>
+        <ListBox HorizontalAlignment="Left" Margin="12,12,0,49" Name="lbCustomers" Width="265" SelectionChanged="lbCustomers_SelectionChanged" MouseDoubleClick="lbCustomers_MouseDoubleClick" />
+        <Button Content="ОК" Height="23" Margin="0,0,12,12" Name="button1" VerticalAlignment="Bottom" Click="button1_Click" HorizontalAlignment="Right" Width="75" />
+        <Button Content="+" Height="23" HorizontalAlignment="Left" Margin="12,338,0,0" Padding="0" Name="button2" VerticalAlignment="Top" Width="27" Click="button2_Click" />
+    </Grid>
+</Window>

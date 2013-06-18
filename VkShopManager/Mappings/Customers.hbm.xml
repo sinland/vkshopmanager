@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="VkShopManager" namespace="VkShopManager.Domain">
+  <class name="Customer" lazy="false" table="customers">
+    <id name="Id" column="id" >
+      <generator class="native"/>
+    </id>
+    <property name="FirstName" column="first_name" not-null="true"/>
+    <property name="LastName" column="last_name" not-null="true"/>
+    <property name="VkId" column="vk_id" not-null="true" type="Int64"/>
+    <property name="AccountTypeId" column="type_id" not-null="true"/>
+    <property name="Address" column="address" />
+    <property name="Phone" column="phone" />
+  </class>
+</hibernate-mapping>

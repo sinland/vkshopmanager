@@ -1,0 +1,61 @@
+﻿<Window x:Class="VkShopManager.OrderEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vcore="clr-namespace:VkShopManager.Core.VisualHelpers"
+        Title="Заказ" Height="428" Width="1063" FontSize="13" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        
+        <Button BorderThickness="0" Width="24" Height="24" Margin="5, 2,2,2" Click="btnEditSelectedOrderAmountClickEventHandler" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/search.png" />
+            </StackPanel>
+        </Button>
+        <Button BorderThickness="0" Width="24" Height="24" Margin="34, 2, 2, 2" Click="btnExportClickHandler" HorizontalAlignment="Left">
+            <Image Source="Images/printer.png" />
+        </Button>
+        <Button BorderThickness="0" Width="24" Height="24" Margin="63, 2, 2, 2" HorizontalAlignment="Left" Click="btnAddPaymentClickHandler">
+            <Image Source="Images/coins.png" />
+        </Button>
+        <Button BorderThickness="0" Width="24" Height="24" Margin="92, 2, 2, 2" HorizontalAlignment="Left" Visibility="Hidden">
+            <Image Source="Images/comment.png" />
+        </Button>
+        <Button Grid.Row="1" Width="30" Height="23" HorizontalAlignment="Left" Margin="5,0,0,0" Name="btnEditCustomer" Click="btnEditCustomer_Click">
+            <Image Source="Images/user.png"></Image>    
+        </Button>
+        <TextBlock Text="Имя Покупателя (10%)" VerticalAlignment="Center" Grid.Row="1" FontSize="16" Margin="40,8,10,10" Name="tbCustomerTitle" FontWeight="Medium" />
+        <ListView Name="lvOrderItems" Grid.Row="2">
+            <ListView.Resources>
+                <vcore:CurrencyVisualiser x:Key="currencyVisualiser"/>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Foreground" Value="Black"></Setter>
+                    <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler"></EventSetter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Status}" Value="OK" >
+                            <Setter Property="Background" Value="LightGreen"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView AllowsColumnReorder="False" >
+                    <GridViewColumn Width="300" DisplayMemberBinding="{Binding Mode=OneWay, Path=Title}" Header="Наименование" />
+                    <GridViewColumn Width="90" DisplayMemberBinding="{Binding Mode=OneWay, Path=Amount}" Header="Количество" />
+                    <GridViewColumn Width="120" DisplayMemberBinding="{Binding Mode=OneWay, Path=Sum, Converter={StaticResource ResourceKey=currencyVisualiser}}" Header="Сумма" />
+                    <GridViewColumn Width="120" DisplayMemberBinding="{Binding Mode=OneWay, Path=Comission, Converter={StaticResource ResourceKey=currencyVisualiser}}" Header="Комиссия" />
+                    <GridViewColumn Width="120" DisplayMemberBinding="{Binding Mode=OneWay, Path=FinalSum, Converter={StaticResource ResourceKey=currencyVisualiser}}" Header="Итого" />
+                    <GridViewColumn Width="220" DisplayMemberBinding="{Binding Mode=OneWay, Path=Comment}" Header="Комментарий" />
+                    <GridViewColumn Width="60" DisplayMemberBinding="{Binding Mode=OneWay, Path=Status}" Header="Статус" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock Margin="10,0,0,0" Grid.Row="3" Text="Итого:" HorizontalAlignment="Left" VerticalAlignment="Center" Name="tbTotal" />
+    </Grid>
+</Window>

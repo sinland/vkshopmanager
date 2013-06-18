@@ -1,0 +1,14 @@
+﻿<Window x:Class="VkShopManager.PaymentPropertiesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Платеж" Height="292" Width="352" WindowStartupLocation="CenterOwner" FontSize="13" Icon="Images/coins.png" ShowInTaskbar="False" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Сумма" Height="28" HorizontalAlignment="Left" Margin="12,26,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="Комментарий:" Height="28" HorizontalAlignment="Left" Margin="12,74,0,0" Name="label2" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="67,31,0,0" Name="tbAmount" VerticalAlignment="Top" Width="138" TabIndex="0" />
+        <Label Content="р." Height="28" HorizontalAlignment="Left" Margin="211,29,0,0" Name="label3" VerticalAlignment="Top" />
+        <TextBox Height="92" HorizontalAlignment="Left" Margin="20,108,0,0" Name="tbComment" VerticalAlignment="Top" Width="295" TabIndex="1" />
+        <Button Content="Отмена" Height="23" HorizontalAlignment="Left" Margin="240,218,0,0" Name="btnCancel" VerticalAlignment="Top" Width="75" TabIndex="3" Click="btnCancel_Click" />
+        <Button Content="ОК" Height="23" HorizontalAlignment="Left" Margin="156,218,0,0" Name="btnOk" VerticalAlignment="Top" Width="75" TabIndex="2" Click="btnOk_Click" />
+    </Grid>
+</Window>

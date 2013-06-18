@@ -1,0 +1,9 @@
+﻿<Window x:Class="VkShopManager.WaitingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ожидание..." Height="123" Width="466" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Label Content="Label" Height="40" HorizontalAlignment="Left" Margin="33,6,0,0" Name="label1" VerticalAlignment="Top" Width="384" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" />
+        <ProgressBar Height="10" HorizontalAlignment="Left" Margin="33,52,0,0" Name="progressBar1" VerticalAlignment="Top" Width="384" IsIndeterminate="True" />
+    </Grid>
+</Window>

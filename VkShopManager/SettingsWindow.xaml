@@ -1,0 +1,36 @@
+﻿<Window x:Class="VkShopManager.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Настройки" Height="267" Width="568" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <TabControl Margin="5" Name="tabControl1">
+            <TabItem Header="Основные" Name="tabItem1">
+                <Grid>
+                    <Label Content="Каталог галереи:" Height="28" HorizontalAlignment="Left" Margin="12,6,0,0" Name="label1" VerticalAlignment="Top" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="12,29,0,0" Name="tbGalleryPath" VerticalAlignment="Top" Width="499" />
+                    <Label Content="ID рабочей группы:" Height="28" HorizontalAlignment="Left" Margin="12,61,0,0" Name="label2" VerticalAlignment="Top" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="12,86,0,0" Name="tbWorkgroupId" VerticalAlignment="Top" Width="150" />
+                    <Label Content="Срок годности токена:" Height="28" Margin="10,118,0,0" Name="label3" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                    <Label Content="..." Height="28" HorizontalAlignment="Left" Margin="143,118,0,0" Name="lblTokenLifeTime" VerticalAlignment="Top" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Скрытые альбомы" Name="tabItem2">
+                <Grid>
+                    <ListBox Height="150" Name="lbHiddenAlbums" Width="350" HorizontalAlignment="Left" />
+                    <Button Content="Показать альбом" Height="23" HorizontalAlignment="Left" Margin="356,6,0,0" Name="btnRemoveAlbumFromHiddens" VerticalAlignment="Top" Width="125" Click="btnRemoveAlbumFromHiddens_Click" />
+                </Grid>
+                
+            </TabItem>
+        </TabControl>
+        
+        <Button Content="Отмена" Height="23" HorizontalAlignment="Right"  Name="btnCancel" Margin="0,0,10,5" Width="75" Grid.Row="1" Click="btnCancel_Click" />
+        <Button Content="ОК" Height="23" HorizontalAlignment="Right" Margin="0,0,95,5"  Name="btnOK" Width="75" Grid.Row="1" Click="btnOK_Click" />
+        <Button Content="Пересоздать БД" Height="23" HorizontalAlignment="Left" Margin="10,0,95,5"  Name="btnCreateNewDb" Width="110" Grid.Row="1" Click="btnCreateNewDb_Click" />
+    </Grid>
+</Window>
+
+    

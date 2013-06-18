@@ -1,0 +1,34 @@
+﻿<Window x:Class="VkShopManager.CommentCheckWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Обработка комментария" Height="669" Width="641" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" FontSize="13" KeyDown="Window_KeyDown">
+    <Grid>
+        <Image Height="141" HorizontalAlignment="Left" Margin="29,16,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="174" />
+        <GroupBox Header="Товар" Height="159" HorizontalAlignment="Left" Margin="223,4,0,0" Name="groupBox1" VerticalAlignment="Top" Width="384">
+            <Grid>
+                <Label Content="Цена:" Height="28" HorizontalAlignment="Left" Margin="6,94,0,0" Name="label2" VerticalAlignment="Top" />
+                <TextBlock Height="82" HorizontalAlignment="Left" Margin="6,6,0,0" Name="tbTitle" Text="Описание товара очень большое, не влезающее даже в одну строчку, и даже в две :)" VerticalAlignment="Top" Width="359" FontSize="20" TextWrapping="Wrap" />
+                <Label Content="125" Height="28" HorizontalAlignment="Left" Margin="62,94,0,0" Name="lblPrice" VerticalAlignment="Top" />
+                <Label Content="Минимум:" Height="28" HorizontalAlignment="Left" Margin="256,94,0,0" Name="label1" VerticalAlignment="Top" />
+                <Label Content="125" Height="28" HorizontalAlignment="Left" Margin="334,94,0,0" Name="lblMin" VerticalAlignment="Top" HorizontalContentAlignment="Right" />
+            </Grid>
+        </GroupBox>
+        <TextBox Height="77" HorizontalAlignment="Left" Margin="223,218,0,0" Name="tbOriginalText" VerticalAlignment="Top" Width="378" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" IsTabStop="False" IsReadOnly="True" />
+        <Label Content="Текст комментария:" Height="28" Margin="0,210,416,0" Name="label3" VerticalAlignment="Top" HorizontalAlignment="Right" Width="139" FontWeight="Bold" />
+        <Label Content="Покупатель:" Height="28" Margin="0,178,416,0" Name="label4" VerticalAlignment="Top" HorizontalAlignment="Right" Width="87" FontWeight="Bold" />
+        <Label Content="Первиненко Василий" Height="30" HorizontalAlignment="Right" Margin="0,176,18,0" Name="lblCustomer" VerticalAlignment="Top" Width="378" FontSize="15" />
+        <Label Content="Действие:" Height="28" HorizontalAlignment="Right" Margin="0,301,416,0" Name="label6" VerticalAlignment="Top" Width="72" FontWeight="Bold" />
+        
+        <RadioButton Content="Добавить позицию к заказу (шт):" Height="21" Margin="223,308,177,0" Name="rbAppendOrder" VerticalAlignment="Top" GroupName="1" Checked="rbAppendOrder_Checked" TabIndex="1" />
+        <RadioButton Content="Уменьшить заказ на (шт):" GroupName="1" Height="21" HorizontalAlignment="Left" Margin="223,335,0,0" Name="rbDecreaseOrder" VerticalAlignment="Top" Width="172" Checked="rbDecreaseOrder_Checked" TabIndex="2" />
+        <RadioButton Content="Удалить товар из заказа" GroupName="1" Height="21" HorizontalAlignment="Left" Margin="223,362,0,0" Name="rbRemovePosition" VerticalAlignment="Top" Width="172" Checked="rbRemovePosition_Checked" TabIndex="4" />
+        <RadioButton Content="Пропустить" GroupName="1" Height="21" HorizontalAlignment="Left" Margin="223,389,0,0" Name="rbSkipComment" VerticalAlignment="Top" Width="172" IsChecked="False" Checked="rbSkipComment_Checked" TabIndex="5" />
+        <RadioButton Content="Пропускать всегда" GroupName="1" Height="21" HorizontalAlignment="Left" IsChecked="False" Margin="223,416,0,0" Name="rbAlwaysSkipComment" VerticalAlignment="Top" Width="172" Checked="rbAlwaysSkipComment_Checked" TabIndex="6" />
+        
+        <Button Content="Закрыть" Height="43" HorizontalAlignment="Left" Margin="164,558,0,0" Name="btnAction" VerticalAlignment="Top" Width="270" Click="btnAction_Click" TabIndex="0" />
+        <TextBox Height="46" HorizontalAlignment="Center" Margin="474,310,18,0" Name="tbAmount" VerticalAlignment="Top" Width="127" HorizontalContentAlignment="Center" IsEnabled="True" IsReadOnly="True" VerticalContentAlignment="Center" FontSize="20" TabIndex="3" />
+        <Label Content="Комментарий к позиции:" FontWeight="Bold" Height="28" HorizontalAlignment="Right" Margin="0,452,413,0" Name="label5" VerticalAlignment="Top" Width="175" />
+        <TextBox Height="90" HorizontalAlignment="Left" Margin="223,448,0,0" VerticalScrollBarVisibility="Visible" Name="tbComment" VerticalAlignment="Top" Width="378" VerticalContentAlignment="Top" TextWrapping="Wrap" TabIndex="7" />
+        
+    </Grid>
+</Window>

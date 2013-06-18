@@ -1,0 +1,8 @@
+﻿<Window x:Class="VkShopManager.ReportsViewerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Отчет" Height="457" Width="934" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <FlowDocumentReader Margin="5" Name="viewer" ViewingMode="Scroll" IsPageViewEnabled="False" IsPrintEnabled="True" IsTwoPageViewEnabled="False" BorderThickness="0" />
+    </Grid>
+</Window>
