@@ -34,6 +34,10 @@ namespace VkShopManager
 
             KeyUp += OnKeyUpHandler;
 
+            ReloadList();
+        }
+        private void ReloadList()
+        {
             m_bgw = new BackgroundWorker();
             m_bgw.DoWork += (sender, args) =>
             {
@@ -47,7 +51,7 @@ namespace VkShopManager
                 }
                 catch (Exception)
                 {
-                    throw new BgWorkerException("Не удалось загрузить список покупателей из БД");
+                    throw new BgWorkerException("Не удалось загрузить список из БД");
                 }
 
                 deliverys.Sort((c1, c2) => c1.Id - c2.Id);
@@ -60,7 +64,7 @@ namespace VkShopManager
                     this.ShowError(args.Error.Message);
                     return;
                 }
-
+                lbDeliveries.Items.Clear();
                 var deliverys = (List<DeliveryType>)args.Result;
                 foreach (DeliveryType c in deliverys)
                 {
@@ -69,7 +73,6 @@ namespace VkShopManager
             };
             m_bgw.RunWorkerAsync();
         }
-
         private void OnKeyUpHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -110,14 +113,17 @@ namespace VkShopManager
             {
                 Comment = "",
                 IsActive = false,
-                Price = 0
+                IsConditional = false,
+                MinimumOrderSummaryCondition = 0,
+                Price = 0,
+                Id = Int32.MinValue
             };
             var cew = new DeliveryTypeEdit(this, c);
             cew.ShowDialog();
 
             if (cew.DialogResult.HasValue && cew.DialogResult.Value)
             {
-                lbDeliveries.Items.Add(c);
+                ReloadList();
             }
         }
 

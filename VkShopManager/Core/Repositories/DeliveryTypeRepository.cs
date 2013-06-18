@@ -10,6 +10,7 @@ namespace VkShopManager.Core.Repositories
         void Delete(DeliveryType deliveryType);
 
         DeliveryType GetById(int id);
+        List<DeliveryType> All();
     }
 
     internal class DeliveryTypeRepository : IDeliveryTypeRepository
@@ -91,6 +92,15 @@ namespace VkShopManager.Core.Repositories
                 }
             }
             return delivery;
+        }
+
+        public List<DeliveryType> All()
+        {
+            using (var s = m_dbManger.OpenSession())
+            {
+                var q = s.CreateQuery("from DeliveryType where 1 = 1");
+                return (List<DeliveryType>)q.List<DeliveryType>();
+            }
         }
     }
 }

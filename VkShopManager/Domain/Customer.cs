@@ -11,6 +11,9 @@ namespace VkShopManager.Domain
     public class Customer : INotifyPropertyChanged
     {
         private int m_accountTypeId;
+        private DeliveryType m_deliveryType;
+        private int m_deliveryTypeId;
+
         public virtual int Id { get; set; }
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
@@ -26,7 +29,15 @@ namespace VkShopManager.Domain
         }
         public virtual string Address { get; set; }
         public virtual string Phone { get; set; }
-        public virtual int DeliveryTypeId { get; set; }
+        public virtual int DeliveryTypeId
+        {
+            get { return m_deliveryTypeId; }
+            set
+            {
+                m_deliveryTypeId = value;
+                m_deliveryType = null;
+            }
+        }
 
         public Customer()
         {
@@ -43,10 +54,15 @@ namespace VkShopManager.Domain
         }
         public DeliveryType GetDeliveryInfo()
         {
-            var mgr = Core.Repositories.DbManger.GetInstance();
-            var repo = mgr.GetDeliveryRepository();
+            if (m_deliveryType == null)
+            {
+                var mgr = Core.Repositories.DbManger.GetInstance();
+                var repo = mgr.GetDeliveryRepository();
 
-            return repo.GetById(this.DeliveryTypeId);
+                m_deliveryType = repo.GetById(this.DeliveryTypeId);
+            }
+
+            return m_deliveryType;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

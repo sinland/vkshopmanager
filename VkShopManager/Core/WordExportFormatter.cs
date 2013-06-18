@@ -51,10 +51,11 @@ namespace VkShopManager.Core
             const string comissionSumBookmark = @"comission";
             const string totalSumBookmark = @"total";
             const string addressBookmark = @"customer_address";
+            const string deliveryBookmark = @"delivery_value";
 
-            var orderRepo = Repositories.DbManger.GetInstance().GetOrderRepository();
-            var prodRepo = Repositories.DbManger.GetInstance().GetProductRepository();
-            var ratesRepo = Repositories.DbManger.GetInstance().GetRatesRepository();
+            var orderRepo = DbManger.GetInstance().GetOrderRepository();
+            var prodRepo = DbManger.GetInstance().GetProductRepository();
+            var ratesRepo = DbManger.GetInstance().GetRatesRepository();
             
 
             ManagedRate comission;
@@ -165,6 +166,23 @@ namespace VkShopManager.Core
             {
                 
             }
+
+            var comissionValue = (clearSum*(comission.Rate/100));
+            var summary = clearSum*(1 + comission.Rate/100);
+            decimal deliveryPrice = 0;
+
+            var delivery = customer.GetDeliveryInfo();
+            if (delivery != null && delivery.IsActive)
+            {
+                if ((delivery.IsConditional &&
+                         delivery.MinimumOrderSummaryCondition > summary) ||
+                        delivery.IsConditional == false)
+                {
+                    summary += delivery.Price;
+                    deliveryPrice = delivery.Price;
+                }
+            }
+
             if (doc.Bookmarks.Exists(customerNameBookmark))
             {
                 doc.Bookmarks[customerNameBookmark].Range.Text = customer.GetFullName();
@@ -179,11 +197,15 @@ namespace VkShopManager.Core
             }
             if (doc.Bookmarks.Exists(comissionSumBookmark))
             {
-                doc.Bookmarks[comissionSumBookmark].Range.Text = String.Format("{0}: {1:C2}", comission.Comment, (clearSum * (comission.Rate / 100)));
+                doc.Bookmarks[comissionSumBookmark].Range.Text = String.Format("{0}: {1:C2}", comission.Comment, comissionValue);
+            }
+            if (doc.Bookmarks.Exists(deliveryBookmark))
+            {
+                doc.Bookmarks[deliveryBookmark].Range.Text = String.Format("Доставка: {0:C0}", deliveryPrice);
             }
             if (doc.Bookmarks.Exists(totalSumBookmark))
             {
-                doc.Bookmarks[totalSumBookmark].Range.Text = String.Format("Итого: {0:C0}", clearSum*(1 + comission.Rate/100));
+                doc.Bookmarks[totalSumBookmark].Range.Text = String.Format("Итого: {0:C0}", summary);
             }
             if (doc.Bookmarks.Exists(addressBookmark) && customer.Address.Length > 0)
             {

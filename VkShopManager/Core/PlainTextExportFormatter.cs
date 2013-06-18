@@ -63,6 +63,7 @@ namespace VkShopManager.Core
             decimal totalClean = 0;
             decimal totalComission = 0;
             decimal totalSum = 0;
+            decimal totalDelivery = 0;
 
             foreach (var custObj in customers)
             {
@@ -125,17 +126,36 @@ namespace VkShopManager.Core
                     positionNum++;
                 }
 
+                var comissionValue = cleanSum*(comission.Rate/100);
+                decimal deliveryValue = 0;
+                var summary = cleanSum*(1 + (comission.Rate/100));
+
                 customerExport.AppendLine(String.Format("Сумма: {0:C2}", cleanSum));
-                customerExport.AppendLine(String.Format("Сбор ({0}): {1:C2}", comission.Comment, cleanSum * (comission.Rate / 100)));
-                customerExport.AppendLine(String.Format("Итог: {0:C0}", cleanSum * (1 + (comission.Rate / 100))));
+                customerExport.AppendLine(String.Format("Сбор ({0}): {1:C2}", comission.Comment, comissionValue));
+                
+                var deliveryInfo = custObj.GetDeliveryInfo();
+                if (deliveryInfo != null && deliveryInfo.IsActive)
+                {
+                    if ((deliveryInfo.IsConditional &&
+                         deliveryInfo.MinimumOrderSummaryCondition > summary) ||
+                        deliveryInfo.IsConditional == false)
+                    {
+                        deliveryValue = deliveryInfo.Price;
+                        summary += deliveryInfo.Price;
+                        customerExport.AppendLine(String.Format("Доставка: {0:C0}", deliveryInfo.Price));
+                    }
+                }
+
+                customerExport.AppendLine(String.Format("Итог: {0:C0}", summary));
                 customerExport.AppendLine();
                 customerExport.AppendLine("".PadRight(80, '-'));
 
                 if (cleanSum > 0)
                 {
                     totalClean += cleanSum;
-                    totalComission += cleanSum*(comission.Rate/100);
-                    totalSum += cleanSum*(1 + (comission.Rate/100));
+                    totalComission += comissionValue;
+                    totalSum += summary;
+                    totalDelivery += deliveryValue;
 
                     sb.Append(customerExport);
                     sb.AppendLine();
@@ -144,6 +164,7 @@ namespace VkShopManager.Core
 
             sb.AppendLine(String.Format("Сумма: {0:C2}", totalClean));
             sb.AppendLine(String.Format("Комиссия: {0:C2}", totalComission));
+            sb.AppendLine(String.Format("Доставка: {0:C2}", totalDelivery));
             sb.AppendLine(String.Format("Итог: {0:C2}", totalSum));
 
             System.IO.File.WriteAllText(m_filename, sb.ToString(), Encoding.UTF8);
@@ -256,10 +277,25 @@ namespace VkShopManager.Core
                 positionNum++;
             }
 
-            customerExport.AppendLine(String.Format("Сумма: {0:C2}", cleanSum));
-            customerExport.AppendLine(String.Format("{0}: {1:C2}", comission.Comment, cleanSum * (comission.Rate / 100)));
-            customerExport.AppendLine(String.Format("Итог: {0:C0}", cleanSum * (1 + (comission.Rate / 100))));
+            var comissionValue = cleanSum*(comission.Rate/100);
+            var summary = cleanSum*(1 + (comission.Rate/100));
 
+            customerExport.AppendLine(String.Format("Сумма: {0:C2}", cleanSum));
+            customerExport.AppendLine(String.Format("{0}: {1:C2}", comission.Comment, comissionValue));
+
+            var delivery = customer.GetDeliveryInfo();
+            if (delivery != null && delivery.IsActive)
+            {
+                if ((delivery.IsConditional &&
+                         delivery.MinimumOrderSummaryCondition > summary) ||
+                        delivery.IsConditional == false)
+                {
+                    summary += delivery.Price;
+                    customerExport.AppendLine(String.Format("Доставка: {0:C0}", delivery.Price));
+                }
+            }
+        
+            customerExport.AppendLine(String.Format("Итог: {0:C0}", summary));
             System.IO.File.WriteAllText(m_filename, customerExport.ToString(), Encoding.UTF8);
         }
 

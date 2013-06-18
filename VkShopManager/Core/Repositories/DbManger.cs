@@ -12,6 +12,14 @@ namespace VkShopManager.Core.Repositories
         private static Configuration s_cfg;
         private static DbManger s_instance;
 
+        private static IDeliveryTypeRepository s_deliveryTypeRepository;
+        private static IAlbumsRepository s_albumsRepository;
+        private static IProductRepository s_productRepository;
+        private static IOrderRepository s_orderRepository;
+        private static ICommentsRepository s_commentsRepository;
+        private static IRatesRepository s_ratesRepository;
+        private static IPaymentsRepository s_paymentsRepository;
+
         private DbManger()
         {
             s_cfg = new Configuration();
@@ -36,34 +44,36 @@ namespace VkShopManager.Core.Repositories
             return u;
 
         }
+
         public IAlbumsRepository GetAlbumsRepository()
         {
-            return new AlbumsRepository(this);
+            return s_albumsRepository ?? (s_albumsRepository = new AlbumsRepository(this));
         }
         public IProductRepository GetProductRepository()
         {
-            return new ProductRepository(this);
+            return s_productRepository ?? (s_productRepository = new ProductRepository(this));
         }
         public IOrderRepository GetOrderRepository()
         {
-            return new OrderRepository(this);
+            return s_orderRepository ?? (s_orderRepository = new OrderRepository(this));
         }
         public ICommentsRepository GetCommentsRepository()
         {
-            return new CommentsRepository(this);
+            return s_commentsRepository ?? (s_commentsRepository = new CommentsRepository(this));
         }
         public IRatesRepository GetRatesRepository()
         {
-            return new RatesRepository(this);
+            return s_ratesRepository ?? (s_ratesRepository = new RatesRepository(this));
         }
         public IPaymentsRepository GetPaymentsRepository()
         {
-            return new PaymentsRepository(this);
+            return s_paymentsRepository ?? (s_paymentsRepository = new PaymentsRepository(this));
         }
         public IDeliveryTypeRepository GetDeliveryRepository()
         {
-            return new DeliveryTypeRepository(this);
+            return s_deliveryTypeRepository ?? (s_deliveryTypeRepository = new DeliveryTypeRepository(this));
         }
+
         public ISession OpenSession()
         {
             return s_session.OpenSession();

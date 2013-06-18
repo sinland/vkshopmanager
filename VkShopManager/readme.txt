@@ -8,6 +8,6 @@ current_date
 clear_sum
 comission
 total
-
+delivery_value
 
 EOF

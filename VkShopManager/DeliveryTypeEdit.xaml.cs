@@ -32,6 +32,10 @@ namespace VkShopManager
             cbIsActive.IsChecked = m_deliveryType.IsActive;
             tbComment.Text = m_deliveryType.Comment;
             tbPrice.Text = m_deliveryType.Price.ToString();
+            tbMinOrderAmount.Text = m_deliveryType.MinimumOrderSummaryCondition.ToString();
+            cbMinOrderActivation.IsChecked = m_deliveryType.IsConditional;
+
+            Title = tbComment.Text.Length < 1 ? "[Новая]" : String.Format("Доставка: {0}", m_deliveryType.Comment);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -50,20 +54,57 @@ namespace VkShopManager
                 this.ShowError("Ошибка: Неверно задана цена доставки.");
                 return;
             }
+            if (cbMinOrderActivation.IsChecked.HasValue && cbMinOrderActivation.IsChecked.Value)
+            {
+                m_deliveryType.IsConditional = true;
+                try
+                {
+                    m_deliveryType.MinimumOrderSummaryCondition = Decimal.Parse(tbMinOrderAmount.Text);
+                }
+                catch (Exception)
+                {
+                    this.ShowError("Ошибка: Неверно задана минимальная сумма счета для включения доставка.");
+                    return;
+                }
+            }
+            else
+            {
+                m_deliveryType.IsConditional = false;
+            }
 
             m_deliveryType.Comment = tbComment.Text.Trim();
-            if (cbIsActive.IsChecked != null) m_deliveryType.IsActive = cbIsActive.IsChecked.Value;
+            if (cbIsActive.IsChecked != null) m_deliveryType.IsActive = (cbIsActive.IsChecked.Value) ;
 
             var repo = Core.Repositories.DbManger.GetInstance().GetDeliveryRepository();
             try
             {
-                repo.Update(m_deliveryType);
-                this.DialogResult = true;
+                if (m_deliveryType.Id == Int32.MinValue)
+                {
+                    repo.Add(m_deliveryType);
+                }
+                else
+                {
+                    repo.Update(m_deliveryType);
+                }
+                
+                DialogResult = true;
                 Close();
             }
             catch
             {
                 this.ShowError("Ошибка: Не удалось сохранить информацию по способу достаки. Ошибка выполенения запроса.");
+            }
+        }
+
+        private void CbMinOrderActivation_OnChecked(object sender, RoutedEventArgs e)
+        {
+            if (cbMinOrderActivation.IsChecked.HasValue && cbMinOrderActivation.IsChecked.Value)
+            {
+                tbMinOrderAmount.IsEnabled = true;
+            }
+            else
+            {
+                tbMinOrderAmount.IsReadOnly = false;
             }
         }
     }

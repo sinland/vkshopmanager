@@ -35,6 +35,8 @@
                 <MenuItem Header="Настройки" Name="cmdFileOpenSettings" Click="CmdFileOpenSettings_OnClick"  />
                 <MenuItem Header="Обновить список" Name="CmdFileGetStoredAlbums" Click="CmdFileGetStoredAlbums_OnClick"  />
                 <MenuItem Header="Загрузить альбомы" Name="CmdFileLoadAlbums" Click="CmdFileLoadAlbums_OnClick"  />
+                <Separator />
+                <MenuItem Header="Доставка" Name="cmdOpenDeliveryList" Click="cmdOpenDeliveryList_OnClick"  />
                 <MenuItem Header="Список покупателей" Name="cmdOpenCustomrsList" Click="cmdOpenCustomrsList_OnClick"  />
                 <Separator />
                 <MenuItem Header="Выход" Name="CmdFileExit" Click="CmdFileExit_OnClick" />

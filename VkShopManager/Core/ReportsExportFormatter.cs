@@ -120,6 +120,9 @@ namespace VkShopManager.Core
             var bills = new List<CustomerOrderInfo>();
             foreach (var custObj in customers)
             {
+                // прелоад информации о способе доставки покупателю
+                custObj.GetDeliveryInfo();
+
                 // информация о комиссии пользователя
                 ManagedRate comission;
                 try
@@ -131,9 +134,6 @@ namespace VkShopManager.Core
                     m_logger.ErrorException(exception);
                     comission = new ManagedRate { Comment = "???", Id = 0, Rate = 0 };
                 }
-
-                int positionNum = 1;
-                decimal cleanSum = 0;
 
                 var coi = new CustomerOrderInfo(custObj, comission);
                 var customerOrders = byCustomerOrders.FirstOrDefault(orders => orders.Key == custObj.Id);
@@ -165,9 +165,6 @@ namespace VkShopManager.Core
                         continue;
                     }
 
-                    decimal sum = order.Amount * productInfo.Price;
-                    cleanSum += sum;
-
                     coi.Items.Add(new CustomerOrderItem
                         {
                             Amount = order.Amount,
@@ -176,7 +173,6 @@ namespace VkShopManager.Core
                             Title = productInfo.Title,
                             Comment = order.Comment
                         });
-                    positionNum++;
                 }
 
                 if (coi.GetOrderCleanSum() > 0)
@@ -218,6 +214,8 @@ namespace VkShopManager.Core
 
                     decimal totalSum = 0;
                     decimal totalComission = 0;
+                    decimal totalDelivery = 0;
+
                     const int numberOfColumns = 5;
                     foreach (CustomerOrderInfo orderInfo in data)
                     {
@@ -343,6 +341,9 @@ namespace VkShopManager.Core
                         }
                         m_document.Blocks.Add(table);
 
+                        var delivery = orderInfo.Customer.GetDeliveryInfo();
+                        var summary = orderInfo.GetOrderCleanSum() + orderInfo.GetOrderComission();
+
                         var p = new Paragraph(new Run(String.Format("Сумма: {0}", orderInfo.GetOrderCleanSum().ToString("C2"))))
                         {
                             FontSize = 11,
@@ -352,10 +353,21 @@ namespace VkShopManager.Core
                             new Run(String.Format("Сбор ({0}): {1}", orderInfo.Comission.Comment,
                                                   orderInfo.GetOrderComission().ToString("C2"))));
                         p.Inlines.Add(new LineBreak());
-                        p.Inlines.Add(
-                            new Run(String.Format("Итог: {0}",
-                                                  (orderInfo.GetOrderCleanSum() + orderInfo.GetOrderComission())
-                                                      .ToString("C0"))));
+
+                        if (delivery != null && delivery.IsActive)
+                        {
+                            if ((delivery.IsConditional &&
+                                 delivery.MinimumOrderSummaryCondition > summary) ||
+                                delivery.IsConditional == false)
+                            {
+                                summary += delivery.Price;
+                                totalDelivery += delivery.Price;
+                                p.Inlines.Add(new Run(String.Format("Доставка: {0:C0}", delivery.Price)));
+                                p.Inlines.Add(new LineBreak());
+                            }
+                        }
+
+                        p.Inlines.Add(new Run(String.Format("Итог: {0}", summary.ToString("C0"))));
                         p.Inlines.Add(new LineBreak());
                         m_document.Blocks.Add(p);
                     }
@@ -367,6 +379,8 @@ namespace VkShopManager.Core
                     };
                     p1.Inlines.Add(new LineBreak());
                     p1.Inlines.Add(new Run(String.Format("Комиссия: {0}", totalComission.ToString("C2"))));
+                    p1.Inlines.Add(new LineBreak());
+                    p1.Inlines.Add(new Run(String.Format("Доставка: {0}", totalDelivery.ToString("C2"))));
                     p1.Inlines.Add(new LineBreak());
                     p1.Inlines.Add(
                         new Run(String.Format("Итог: {0}",
@@ -556,6 +570,7 @@ namespace VkShopManager.Core
         public override void ExportCustomerOrders(Customer customer)
         {
             ClearDocument();
+
             var orderRepository = DbManger.GetInstance().GetOrderRepository();
             var productRepository = DbManger.GetInstance().GetProductRepository();
             var ratesRepository = DbManger.GetInstance().GetRatesRepository();
@@ -573,6 +588,9 @@ namespace VkShopManager.Core
                 m_logger.ErrorException(exception);
                 throw new ApplicationException("Ошибка: Не удалось выполнить чтение из БД");
             }
+
+            // прелоад информации о способе доставки
+            customer.GetDeliveryInfo();
 
             var orderInfo = new CustomerOrderInfo(customer, comission);
             foreach (Order order in orders)
@@ -733,19 +751,40 @@ namespace VkShopManager.Core
                     rowNum++;
                 }
 
+                var comissionValue = summary*(corders.Comission.Rate/100);
+                var total = summary*(1 + (corders.Comission.Rate/100));
+                var delivery = corders.Customer.GetDeliveryInfo();
+
                 var p = new Paragraph(new Run(String.Format("Сумма: {0}", summary.ToString("C2"))))
                     {
                         FontSize = 13,
                         FontWeight = FontWeights.Bold
                     };
                 p.Inlines.Add(new LineBreak());
-                p.Inlines.Add(new Run(String.Format("Сбор ({0}): {1:C2}", corders.Comission.Comment, summary * (corders.Comission.Rate / 100)))
+                p.Inlines.Add(new Run(String.Format("Сбор ({0}): {1:C2}", corders.Comission.Comment, comissionValue))
                     {
                         FontSize = 13,
                         FontWeight = FontWeights.Bold
                     });
                 p.Inlines.Add(new LineBreak());
-                p.Inlines.Add(new Run(String.Format("Итог: {0:C0}", summary * (1 + (corders.Comission.Rate / 100))))
+
+                if (delivery != null && delivery.IsActive)
+                {
+                    if ((delivery.IsConditional &&
+                         delivery.MinimumOrderSummaryCondition > summary) ||
+                        delivery.IsConditional == false)
+                    {
+                        total += delivery.Price;
+                        p.Inlines.Add(new Run(String.Format("Доставка: {0:C2}", delivery.Price))
+                        {
+                            FontSize = 13,
+                            FontWeight = FontWeights.Bold
+                        });
+                        p.Inlines.Add(new LineBreak());
+                    }
+                }
+
+                p.Inlines.Add(new Run(String.Format("Итог: {0:C0}", total))
                 {
                     FontSize = 13,
                     FontWeight = FontWeights.Bold

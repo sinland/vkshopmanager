@@ -106,8 +106,8 @@ namespace VkShopManager
             // создать каталог галереи
             try
             {
-                System.IO.Directory.CreateDirectory(m_settings.GalleryPath);
-                System.IO.Directory.CreateDirectory(m_settings.ReportsPath);
+                Directory.CreateDirectory(m_settings.GalleryPath);
+                Directory.CreateDirectory(m_settings.ReportsPath);
             }
             catch
             {
@@ -229,21 +229,20 @@ namespace VkShopManager
 
         private void ApplicationExitEventHandler(object sender, ExitEventArgs e)
         {
-            if (this.ShowQuestion("Очистить каталог экспорта отчетов?"))
-            {
-                foreach (var file in Directory.GetFiles(m_settings.ReportsPath, "*.*", SearchOption.TopDirectoryOnly))
-                {
-                    try
-                    {
-                        File.Delete(file);
-                    }
-                    catch
-                    {
-                        
-                    }
-                }
-            }
-
+//            if (this.ShowQuestion("Очистить каталог экспорта отчетов?"))
+//            {
+//                foreach (var file in Directory.GetFiles(m_settings.ReportsPath, "*.*", SearchOption.TopDirectoryOnly))
+//                {
+//                    try
+//                    {
+//                        File.Delete(file);
+//                    }
+//                    catch
+//                    {
+//                        
+//                    }
+//                }
+//            }
         }
 
         /// <summary>
@@ -1258,6 +1257,11 @@ namespace VkShopManager
             {
                 ShowAlbumProductsDetails(SelectedAlbum);
             }
+        }
+
+        private void cmdOpenDeliveryList_OnClick(object sender, RoutedEventArgs e)
+        {
+            new DeliveryTypeSelection(this).ShowDialog();
         }
     }
 }

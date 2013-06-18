@@ -32,45 +32,49 @@ namespace VkShopManager
 
             KeyUp += OnKeyUp;
 
+            ReloadList();
+        }
+        private void ReloadList()
+        {
             m_bgw = new BackgroundWorker();
             m_bgw.DoWork += (sender, args) =>
+            {
+                var db = Core.Repositories.DbManger.GetInstance();
+                var custRepo = db.GetCustomersRepository();
+
+                var customers = new List<Customer>(0);
+                try
                 {
-                    var db = Core.Repositories.DbManger.GetInstance();
-                    var custRepo = db.GetCustomersRepository();
+                    customers.AddRange(custRepo.All());
+                }
+                catch (Exception)
+                {
+                    throw new BgWorkerException("Не удалось загрузить список покупателей из БД");
+                }
 
-                    var customers = new List<Customer>(0);
-                    try
-                    {
-                        customers.AddRange(custRepo.All());
-                    }
-                    catch (Exception)
-                    {
-                        throw new BgWorkerException("Не удалось загрузить список покупателей из БД");
-                    }
-
-                    customers.Sort(
-                        (customer, customer1) =>
-                        String.Compare(customer.GetFullName(), customer1.GetFullName(),
-                                       StringComparison.CurrentCultureIgnoreCase));
-                    args.Result = customers;
-                };
+                customers.Sort(
+                    (customer, customer1) =>
+                    String.Compare(customer.GetFullName(), customer1.GetFullName(),
+                                   StringComparison.CurrentCultureIgnoreCase));
+                args.Result = customers;
+            };
             m_bgw.RunWorkerCompleted += (sender, args) =>
+            {
+                lbCustomers.Items.Clear();
+                if (args.Error != null)
                 {
-                    if (args.Error != null)
-                    {
-                        this.ShowError(args.Error.Message);
-                        return;
-                    }
+                    this.ShowError(args.Error.Message);
+                    return;
+                }
 
-                    var customers = (List<Customer>) args.Result;
-                    foreach (Customer customer in customers)
-                    {
-                        lbCustomers.Items.Add(customer);
-                    }
-                };
+                var customers = (List<Customer>)args.Result;
+                foreach (Customer customer in customers)
+                {
+                    lbCustomers.Items.Add(customer);
+                }
+            };
             m_bgw.RunWorkerAsync();
         }
-
         private void OnKeyUp(object sender, KeyEventArgs keyEventArgs)
         {
             if (keyEventArgs.Key == Key.Escape)
@@ -120,7 +124,7 @@ namespace VkShopManager
             
             if (cew.DialogResult.HasValue && cew.DialogResult.Value)
             {
-                lbCustomers.Items.Add(c);
+                ReloadList();
             }
         }
     }

@@ -31,7 +31,6 @@ namespace VkShopManager
             Owner = owner;
 
             KeyUp += OnKeyUp;
-            //lblName.Content = customer.GetFullName();
 
             tbName.Text = customer.FirstName;
             tbSurname.Text = customer.LastName;
@@ -46,6 +45,7 @@ namespace VkShopManager
             {
                 rates = new List<ManagedRate>(0);
             }
+            
             int selectedIndex = 0;
             for (int index = 0; index < rates.Count; index++)
             {
@@ -55,6 +55,24 @@ namespace VkShopManager
             }
 
             if (comboBox1.Items.Count > 0) comboBox1.SelectedIndex = selectedIndex;
+
+            List<DeliveryType> delivery;
+            try
+            {
+                delivery = DbManger.GetInstance().GetDeliveryRepository().All();
+            }
+            catch
+            {
+                delivery = new List<DeliveryType>(0);
+            }
+            selectedIndex = 0;
+            for (int i = 0; i < delivery.Count; i++)
+            {
+                DeliveryType dt = delivery[i];
+                if (m_customer.DeliveryTypeId == dt.Id) selectedIndex = i;
+                comboBox2.Items.Add(dt);
+            }
+            if (comboBox2.Items.Count > 0) comboBox2.SelectedIndex = selectedIndex;
 
             tbAddress.Text = customer.Address;
             tbPhone.Text = customer.Phone;
@@ -74,12 +92,14 @@ namespace VkShopManager
         {
             var repo = DbManger.GetInstance().GetCustomersRepository();
             var rate = comboBox1.SelectedItem as ManagedRate;
+            var delivery = comboBox2.SelectedItem as DeliveryType;
 
             m_customer.FirstName = tbName.Text.Trim();
             m_customer.LastName = tbSurname.Text.Trim();
             m_customer.Address = tbAddress.Text.Trim();
             m_customer.Phone = tbPhone.Text.Trim();
             m_customer.AccountTypeId = rate.Id;
+            m_customer.DeliveryTypeId = delivery.Id;
 
             try
             {
@@ -100,6 +120,11 @@ namespace VkShopManager
         }
 
         private void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void comboBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
         }

@@ -7,5 +7,7 @@
     <property name="IsActive" column="is_active" />
     <property name="Comment" column="comment" type="string"/>
     <property name="Price" column="price" not-null="true"/>
+    <property name="IsConditional" column="is_conditional" not-null="true"/>
+    <property name="MinimumOrderSummaryCondition" column="min_summary_condition" not-null="true"/>
   </class>
 </hibernate-mapping>

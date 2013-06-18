@@ -26,6 +26,9 @@ namespace VkShopManager.Domain
         /// </summary>
         public virtual decimal Price { get; set; }
 
+        public virtual bool IsConditional { get; set; }
+        public virtual decimal MinimumOrderSummaryCondition { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
@@ -33,6 +36,11 @@ namespace VkShopManager.Domain
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override string ToString()
+        {
+            return Comment;
         }
     }
 }

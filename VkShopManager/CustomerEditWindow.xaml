@@ -1,19 +1,21 @@
 ﻿<Window x:Class="VkShopManager.CustomerEditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Покупатель" Height="303" Width="399" FontSize="13" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Title="Покупатель" Height="336" Width="399" FontSize="13" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Grid>
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="88,184,0,0" Name="comboBox1" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox1_SelectionChanged" TabIndex="4" />
         <Label Content="Комиссия:" Height="28" HorizontalAlignment="Left" Margin="11,181,0,0" Name="label2" VerticalAlignment="Top" FontSize="13" />
-        <Button Content="OK" Height="28" HorizontalAlignment="Left" Margin="187,221,0,0" Name="btnSave" VerticalAlignment="Top" Width="84" FontSize="13" Click="btnSave_Click" TabIndex="5" />
-        <Button Content="Отмена" FontSize="13" Height="28" HorizontalAlignment="Right" Margin="0,221,16,0" Name="btnClose" VerticalAlignment="Top" Width="84" Click="btnClose_Click" TabIndex="6" />
+        <Button Content="OK" HorizontalAlignment="Right" Margin="0,0,106,15" Name="btnSave" Width="84" FontSize="13" Click="btnSave_Click" TabIndex="6" Height="28" VerticalAlignment="Bottom" />
+        <Button Content="Отмена" FontSize="13" HorizontalAlignment="Right" Margin="0,0,16,15" Name="btnClose" Width="84" Click="btnClose_Click" TabIndex="7" Height="28" VerticalAlignment="Bottom" />
         <Label Content="Адрес:" Height="28" HorizontalAlignment="Left" Margin="11,75,0,0" Name="label1" VerticalAlignment="Top" />
-        <TextBox Height="61" HorizontalAlignment="Left" Margin="88,80,0,0" Name="tbAddress" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" TabIndex="2" />
+        <TextBox Height="61" HorizontalAlignment="Left" Margin="88,80,0,0" Name="tbAddress" VerticalAlignment="Top" Width="273" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" TabIndex="2" />
         <Label Content="Телефон:" Height="28" HorizontalAlignment="Left" Margin="11,147,0,0" Name="label3" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="88,152,0,0" Name="tbPhone" VerticalAlignment="Top" Width="236" TabIndex="3" />
         <Label Content="Фамилия:" Height="28" HorizontalAlignment="Left" Margin="11,41,0,0" Name="label4" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="88,43,0,0" Name="tbSurname" TabIndex="1" VerticalAlignment="Top" Width="236" />
         <Label Content="Имя:" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label5" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="88,14,0,0" Name="tbName" TabIndex="0" VerticalAlignment="Top" Width="236" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="88,213,0,0" Name="comboBox2" TabIndex="5" VerticalAlignment="Top" Width="236" SelectionChanged="comboBox2_SelectionChanged" />
+        <Label Content="Доставка:" FontSize="13" Height="28" HorizontalAlignment="Left" Margin="11,210,0,0" Name="label6" VerticalAlignment="Top" />
     </Grid>
 </Window>
