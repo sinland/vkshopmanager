@@ -22,6 +22,7 @@ namespace VkShopManager.Domain
         }
         public virtual string Address { get; set; }
         public virtual string Phone { get; set; }
+        // public virtual decimal DeliveryTypeId { get; set; }
 
         public Customer()
         {

@@ -332,7 +332,6 @@ namespace VkShopManager
                     parsedComment.Message = vkComment.Message;
                     parsedComment.SenderName = customer.GetFullName();
                     parsedComment.PostingDate = vkComment.Date.ToString();
-                    //String.Format("{0}|{1}|{2}", customer.GetFullName(), vkComment.Message, vkComment.Date);
 
                     // начальная инициализация
                     var orderObj = new Order
@@ -467,6 +466,7 @@ namespace VkShopManager
                             else
                             {
                                 storedOrder.Amount += orderObj.Amount;
+                                storedOrder.Comment += String.Format("; {0}", orderObj.Comment);
                                 try
                                 {
                                     ordersRepo.Update(storedOrder);

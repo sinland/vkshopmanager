@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -228,7 +229,21 @@ namespace VkShopManager
 
         private void ApplicationExitEventHandler(object sender, ExitEventArgs e)
         {
-            
+            if (this.ShowQuestion("Очистить каталог экспорта отчетов?"))
+            {
+                foreach (var file in Directory.GetFiles(m_settings.ReportsPath, "*.*", SearchOption.TopDirectoryOnly))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        
+                    }
+                }
+            }
+
         }
 
         /// <summary>

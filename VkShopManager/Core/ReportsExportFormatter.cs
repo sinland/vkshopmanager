@@ -168,23 +168,13 @@ namespace VkShopManager.Core
                     decimal sum = order.Amount * productInfo.Price;
                     cleanSum += sum;
 
-                    var repo = DbManger.GetInstance().GetCommentsRepository();
-                    var res = (from comment in repo.GetForProduct(productInfo)
-                               where
-                                   !String.IsNullOrEmpty(comment.Message) && comment.SenderName == custObj.GetFullName()
-                               select comment);
-                    var comments = res.Aggregate("",
-                                                 (current, parsedComment) =>
-                                                 current + String.Format("{0}; ", parsedComment.Message));
-                    if (comments.Length > 0) comments = String.Format("({0})", comments);
-
                     coi.Items.Add(new CustomerOrderItem
                         {
                             Amount = order.Amount,
                             IsPartial = partialIndicator.Length > 0,
                             Price = productInfo.Price,
                             Title = productInfo.Title,
-                            Comment = comments
+                            Comment = order.Comment
                         });
                     positionNum++;
                 }
@@ -317,7 +307,11 @@ namespace VkShopManager.Core
                                 BorderThickness = borderThick,
                                 BorderBrush = borderColor
                             });
-                            row.Cells.Add(new TableCell(new Paragraph(new Run(prod.Title + " " + prod.Comment)))
+
+                            var title = prod.Comment.Length > 0
+                                            ? String.Format("{0} ({1})", prod.Title, prod.Comment)
+                                            : prod.Title;
+                            row.Cells.Add(new TableCell(new Paragraph(new Run(title)))
                             {
                                 TextAlignment = TextAlignment.Left,
                                 Padding = new Thickness(3),
