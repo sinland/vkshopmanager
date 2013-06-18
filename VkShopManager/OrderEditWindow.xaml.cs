@@ -27,7 +27,7 @@ namespace VkShopManager
         private readonly CustomerListViewItem m_customerItem;
         private readonly Customer m_customer;
         private readonly Album m_album;
-        private ManagedRate m_comission;
+        // private ManagedRate m_comission;
         private Result m_result = Result.None;
         
         private string m_statusBackup;
@@ -76,16 +76,18 @@ namespace VkShopManager
                 {
                     var orderRepo = Core.Repositories.DbManger.GetInstance().GetOrderRepository();
                     var prodRepo = Core.Repositories.DbManger.GetInstance().GetProductRepository();
-                    var ratesRepo = Core.Repositories.DbManger.GetInstance().GetRatesRepository();
+                    //var ratesRepo = Core.Repositories.DbManger.GetInstance().GetRatesRepository();
 
-                    try
-                    {
-                        m_comission = ratesRepo.GetById(m_customer.AccountTypeId);
-                    }
-                    catch (Exception)
-                    {
+                    if (m_customer.GetCommissionInfo() == null)
                         throw new BgWorkerException("Ошибка. Не удалось получить ставку пользователя.");
-                    }
+//                    try
+//                    {
+//                        m_comission = ratesRepo.GetById(m_customer.AccountTypeId);
+//                    }
+//                    catch (Exception)
+//                    {
+//                        throw new BgWorkerException("Ошибка. Не удалось получить ставку пользователя.");
+//                    }
 
                     List<Order> orders;
                     try
@@ -103,13 +105,12 @@ namespace VkShopManager
                     foreach (var order in orders)
                     {
                         Product p;
-                        long totalOrdered = 0;
+                        long totalOrdered;
                         try
                         {
                             p = prodRepo.GetById(order.ProductId);
                             if (p == null)
                             {
-                                //todo: add logging
                                 continue;
                             }
                             totalOrdered = orderRepo.GetProductTotalOrderedAmount(p);
@@ -120,7 +121,9 @@ namespace VkShopManager
                         {
                             throw new BgWorkerException("Ошибка БД.");
                         }
-                        var item = new OrderListViewItem(order, p, m_comission)
+                        
+                        //var item = new OrderListViewItem(order, p, m_comission)
+                        var item = new OrderListViewItem(order, p, m_customer.GetCommissionInfo())
                             {
                                 Status = totalOrdered < p.MinAmount ? "" : "OK"
                             };
@@ -141,7 +144,7 @@ namespace VkShopManager
                         return;
                     }
 
-                    tbCustomerTitle.Text = String.Format("{0} ({1})", m_customer.GetFullName(), m_comission.Comment);
+                    tbCustomerTitle.Text = String.Format("{0} ({1})", m_customer.GetFullName(), m_customer.GetCommissionInfo().Comment);
 
                     var list = args.Result as List<OrderListViewItem>;
                     foreach (var lvi in list)
@@ -204,10 +207,10 @@ namespace VkShopManager
             }
         }
 
-        public Result GetResult()
-        {
-            return m_result;
-        }
+//        public Result GetResult()
+//        {
+//            return m_result;
+//        }
 
         private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
         {
@@ -287,7 +290,6 @@ namespace VkShopManager
             {
                 repo.Add(payment);
                 m_customerItem.Payment += payment.Amount;
-                // m_customerItem.NotifyPropertiesChanged();
             }
             catch (Exception exception)
             {

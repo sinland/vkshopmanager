@@ -745,22 +745,28 @@ namespace VkShopManager
                                 ordersGroup.Key);
                             continue;
                         }
+                        if (custObj.GetCommissionInfo() == null)
+                        {
+                            throw new BgWorkerException(String.Format("Ошибка: Для покупателя '{0}' неверно установлена ставка комиссии.",
+                                custObj.GetFullName()));
+                        }
+                        
                         
                         // информация о комиссии пользователя
-                        ManagedRate rateInfo;
-                        try
-                        {
-                            rateInfo = ratesRepository.GetById(custObj.AccountTypeId);
-                        }
-                        catch (Exception exception)
-                        {
-                            m_logger.ErrorException(exception);
-                            rateInfo = new ManagedRate { Comment = "???", Id = 0, Rate = 0 };
-                        }
+//                        ManagedRate rateInfo;
+//                        try
+//                        {
+//                            rateInfo = ratesRepository.GetById(custObj.AccountTypeId);
+//                        }
+//                        catch (Exception exception)
+//                        {
+//                            m_logger.ErrorException(exception);
+//                            rateInfo = new ManagedRate { Comment = "???", Id = 0, Rate = 0 };
+//                        }
 
                         // создание объекта записи в таблице
                         var clvi = new CustomerListViewItem(custObj) {OrderedItemsCount = 0};
-                        clvi.ApplyCommission(rateInfo);
+                        // clvi.ApplyCommission(rateInfo);
 
                         var showEmpty = RegistrySettings.GetInstance().ShowEmptyPositions;
                         var showPartial = RegistrySettings.GetInstance().ShowPartialPositions;

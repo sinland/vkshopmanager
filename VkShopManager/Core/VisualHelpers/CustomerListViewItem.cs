@@ -12,7 +12,7 @@ namespace VkShopManager.Core.VisualHelpers
     {
         private bool m_selected = false;
 
-        private ManagedRate m_rateInfo;
+        // private ManagedRate m_rateInfo;
         private decimal m_payment;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace VkShopManager.Core.VisualHelpers
         /// <summary>
         /// Информация о покупателе
         /// </summary>
-        public Customer Source { get; set; }
+        public Customer Source { get; private set; }
         /// <summary>
         /// Сумма заказа без комисии
         /// </summary>
@@ -39,14 +39,14 @@ namespace VkShopManager.Core.VisualHelpers
         /// </summary>
         public string AccountType
         {
-            get { return m_rateInfo.Comment; }
+            get { return Source.GetCommissionInfo().Comment; }
         }
         /// <summary>
         /// Сумма комиссии
         /// </summary>
         public decimal CommissionSum
         {
-            get { return Math.Round(CleanSum*(m_rateInfo.Rate/100), 2); }
+            get { return Math.Round(CleanSum * (Source.GetCommissionInfo().Rate / 100), 2); }
         }
         /// <summary>
         /// Итог
@@ -102,7 +102,7 @@ namespace VkShopManager.Core.VisualHelpers
             HasPartialPosition = false;
             OrderedItemsCount = 0;
             CleanSum = 0;
-            m_rateInfo = new ManagedRate {Comment = "???", Id = 0, Rate = 0};
+            // m_rateInfo = new ManagedRate {Comment = "???", Id = 0, Rate = 0};
         }
 
         void Source_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -113,36 +113,38 @@ namespace VkShopManager.Core.VisualHelpers
                 // комиссию, общую сумма заказа
                 
                 // этого тут быть не должно !!!
-                ManagedRate r;
-                try
-                {
-                    r = Repositories.DbManger.GetInstance().GetRatesRepository().GetById(Source.AccountTypeId);
-                }
-                catch
-                {
-                    r = null;
-                }
-                if (r == null) return;
-                m_rateInfo = r;
+                // upd: fixed
+                
+//                ManagedRate r;
+//                try
+//                {
+//                    r = Repositories.DbManger.GetInstance().GetRatesRepository().GetById(Source.AccountTypeId);
+//                }
+//                catch
+//                {
+//                    r = null;
+//                }
+//                if (r == null) return;
+//                m_rateInfo = r;
 
                 OnPropertyChanged("AccountType");
                 OnPropertyChanged("CommissionSum");
                 OnPropertyChanged("TotalSum");
             }
         }
-        /// <summary>
-        /// Устанавливает комиссию для покупателя
-        /// </summary>
-        /// <param name="rateInfo"></param>
-        public void ApplyCommission(ManagedRate rateInfo)
-        {
-            m_rateInfo = rateInfo;
-        }
+//        /// <summary>
+//        /// Устанавливает комиссию для покупателя
+//        /// </summary>
+//        /// <param name="rateInfo"></param>
+//        public void ApplyCommission(ManagedRate rateInfo)
+//        {
+//            m_rateInfo = rateInfo;
+//        }
 
-        public ManagedRate GetComissionInfo()
-        {
-            return m_rateInfo;
-        }
+//        public ManagedRate GetComissionInfo()
+//        {
+//            return m_rateInfo;
+//        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -55,19 +55,21 @@ namespace VkShopManager.Core
 
             var orderRepo = DbManger.GetInstance().GetOrderRepository();
             var prodRepo = DbManger.GetInstance().GetProductRepository();
-            var ratesRepo = DbManger.GetInstance().GetRatesRepository();
+//            var ratesRepo = DbManger.GetInstance().GetRatesRepository();
             
 
-            ManagedRate comission;
-            try
-            {
-                comission = ratesRepo.GetById(customer.AccountTypeId);
-            }
-            catch (Exception e)
-            {
-                m_log.ErrorException(e);
+//            ManagedRate comission;
+//            try
+//            {
+//                comission = ratesRepo.GetById(customer.AccountTypeId);
+//            }
+//            catch (Exception e)
+//            {
+//                m_log.ErrorException(e);
+//                throw new ApplicationException("Ошибка. Не удалось получить ставку покупателя.");
+//            }
+            if(customer.GetCommissionInfo() == null) 
                 throw new ApplicationException("Ошибка. Не удалось получить ставку покупателя.");
-            }
 
             List<Order> orders;
             try
@@ -144,8 +146,7 @@ namespace VkShopManager.Core
                     throw new ApplicationException("Ошибка БД.");
                 }
 
-                var title = "";
-                title = p.GenericUrl.Length > 0 ? String.Format("{0} ({1})", p.Title, p.GenericUrl) : p.Title;
+                var title = p.GenericUrl.Length > 0 ? String.Format("{0} ({1})", p.Title, p.GenericUrl) : p.Title;
 
                 table.Rows.Add();
                 table.Cell(row, 1).Range.Text = (row - 1).ToString();
@@ -167,6 +168,7 @@ namespace VkShopManager.Core
                 
             }
 
+            var comission = customer.GetCommissionInfo();
             var comissionValue = (clearSum*(comission.Rate/100));
             var summary = clearSum*(1 + comission.Rate/100);
             decimal deliveryPrice = 0;
@@ -282,7 +284,7 @@ namespace VkShopManager.Core
                 IGrouping<int, Order> orders = null;
 
                 var totalItems = 0;
-                var totalPosition = 0;
+//                var totalPosition = 0;
 
                 foreach (IGrouping<int, Order> group in groupedAlbumOrders)
                 {
@@ -291,11 +293,7 @@ namespace VkShopManager.Core
                 }
                 if (orders != null)
                 {
-                    foreach (Order order in orders)
-                    {
-                        totalPosition += 1;
-                        totalItems += order.Amount;
-                    }
+                    totalItems += orders.Sum(order => order.Amount);
                 }
                 if (totalItems == 0)
                 {

@@ -26,13 +26,11 @@ namespace VkShopManager.Core
         private class CustomerOrderInfo
         {
             public Customer Customer { get; private set; }
-            public ManagedRate Comission { get; private set; }
             public readonly List<CustomerOrderItem> Items;
 
-            public CustomerOrderInfo(Customer customer, ManagedRate comission)
+            public CustomerOrderInfo(Customer customer)
             {
                 Customer = customer;
-                Comission = comission;
                 Items = new List<CustomerOrderItem>(0);
             }
 
@@ -42,7 +40,7 @@ namespace VkShopManager.Core
             }
             public decimal GetOrderComission()
             {
-                return (Items.Sum(item => item.Amount*item.Price)*(Comission.Rate)/100);
+                return (Items.Sum(item => item.Amount*item.Price)*(Customer.GetCommissionInfo().Rate)/100);
             }
         }
 
@@ -124,18 +122,21 @@ namespace VkShopManager.Core
                 custObj.GetDeliveryInfo();
 
                 // информация о комиссии пользователя
-                ManagedRate comission;
-                try
-                {
-                    comission = ratesRepository.GetById(custObj.AccountTypeId);
-                }
-                catch (Exception exception)
-                {
-                    m_logger.ErrorException(exception);
-                    comission = new ManagedRate { Comment = "???", Id = 0, Rate = 0 };
-                }
+//                ManagedRate comission;
+//                try
+//                {
+//                    comission = ratesRepository.GetById(custObj.AccountTypeId);
+//                }
+//                catch (Exception exception)
+//                {
+//                    m_logger.ErrorException(exception);
+//                    comission = new ManagedRate { Comment = "???", Id = 0, Rate = 0 };
+//                }
 
-                var coi = new CustomerOrderInfo(custObj, comission);
+                if (custObj.GetCommissionInfo() == null)
+                    throw new ApplicationException("Для покупателя не задана ставка комиссии: " + custObj.GetFullName());
+
+                var coi = new CustomerOrderInfo(custObj);
                 var customerOrders = byCustomerOrders.FirstOrDefault(orders => orders.Key == custObj.Id);
                 foreach (Order order in customerOrders)
                 {
@@ -155,9 +156,8 @@ namespace VkShopManager.Core
                             {
                                 continue;
                             }
-                            else partialIndicator = "(!)";
+                            partialIndicator = "(!)";
                         }
-
                     }
                     catch (Exception exception)
                     {
@@ -350,7 +350,7 @@ namespace VkShopManager.Core
                         };
                         p.Inlines.Add(new LineBreak());
                         p.Inlines.Add(
-                            new Run(String.Format("Сбор ({0}): {1}", orderInfo.Comission.Comment,
+                            new Run(String.Format("Сбор ({0}): {1}", orderInfo.Customer.GetCommissionInfo().Comment,
                                                   orderInfo.GetOrderComission().ToString("C2"))));
                         p.Inlines.Add(new LineBreak());
 
@@ -573,14 +573,17 @@ namespace VkShopManager.Core
 
             var orderRepository = DbManger.GetInstance().GetOrderRepository();
             var productRepository = DbManger.GetInstance().GetProductRepository();
-            var ratesRepository = DbManger.GetInstance().GetRatesRepository();
+//            var ratesRepository = DbManger.GetInstance().GetRatesRepository();
+
+            if (customer.GetCommissionInfo() == null)
+                throw new ApplicationException("Для покупателя неверно установлена ставка комиссии!");
 
             // информация о комиссии пользователя
-            ManagedRate comission;
+//            ManagedRate comission;
             List<Order> orders;
             try
             {
-                comission = ratesRepository.GetById(customer.AccountTypeId);
+//                comission = ratesRepository.GetById(customer.AccountTypeId);
                 orders = orderRepository.GetOrdersForCustomerFromAlbum(customer, WorkingAlbum);
             }
             catch (Exception exception)
@@ -592,12 +595,12 @@ namespace VkShopManager.Core
             // прелоад информации о способе доставки
             customer.GetDeliveryInfo();
 
-            var orderInfo = new CustomerOrderInfo(customer, comission);
+            var orderInfo = new CustomerOrderInfo(customer);
             foreach (Order order in orders)
             {
                 if (!IsIncludingEmpty && order.Amount == 0) continue;
 
-                Product productInfo = null;
+                Product productInfo;
                 OnProgressChanged("Получение информации о продукте");
 
                 string partialIndicator = "";
@@ -611,9 +614,9 @@ namespace VkShopManager.Core
                         {
                             continue;
                         }
-                        else partialIndicator = "(!)";
+                        
+                        partialIndicator = "(!)";
                     }
-
                 }
                 catch (Exception exception)
                 {
@@ -621,7 +624,7 @@ namespace VkShopManager.Core
                     continue;
                 }
 
-                orderInfo.Items.Add(new CustomerOrderItem()
+                orderInfo.Items.Add(new CustomerOrderItem
                     {
                         Amount = order.Amount,
                         Price = productInfo.Price,
@@ -751,8 +754,9 @@ namespace VkShopManager.Core
                     rowNum++;
                 }
 
-                var comissionValue = summary*(corders.Comission.Rate/100);
-                var total = summary*(1 + (corders.Comission.Rate/100));
+                var commission = corders.Customer.GetCommissionInfo();
+                var comissionValue = summary * (commission.Rate / 100);
+                var total = summary * (1 + (commission.Rate / 100));
                 var delivery = corders.Customer.GetDeliveryInfo();
 
                 var p = new Paragraph(new Run(String.Format("Сумма: {0}", summary.ToString("C2"))))
@@ -761,7 +765,7 @@ namespace VkShopManager.Core
                         FontWeight = FontWeights.Bold
                     };
                 p.Inlines.Add(new LineBreak());
-                p.Inlines.Add(new Run(String.Format("Сбор ({0}): {1:C2}", corders.Comission.Comment, comissionValue))
+                p.Inlines.Add(new Run(String.Format("Сбор ({0}): {1:C2}", commission.Comment, comissionValue))
                     {
                         FontSize = 13,
                         FontWeight = FontWeights.Bold
@@ -889,7 +893,7 @@ namespace VkShopManager.Core
                     IGrouping<int, Order> orders = null;
 
                     var totalItems = 0;
-                    var totalPosition = 0;
+//                    var totalPosition = 0;
 
                     foreach (IGrouping<int, Order> group in groupedAlbumOrders)
                     {
@@ -898,11 +902,7 @@ namespace VkShopManager.Core
                     }
                     if (orders != null)
                     {
-                        foreach (Order order in orders)
-                        {
-                            totalPosition += 1;
-                            totalItems += order.Amount;
-                        }
+                        totalItems += orders.Sum(order => order.Amount);
                     }
                     if (totalItems == 0)
                     {

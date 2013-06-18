@@ -72,17 +72,21 @@ namespace VkShopManager.Core
                 customerExport.AppendLine(String.Format("{0}", custObj.GetFullName().ToUpper()));
                 customerExport.AppendLine();
 
+                var comission = custObj.GetCommissionInfo();
+                if (comission == null)
+                    throw new ApplicationException("Для покупателя не задана ставка комиссии: " + custObj.GetFullName());
+                
                 // информация о комиссии пользователя
-                ManagedRate comission;
-                try
-                {
-                    comission = ratesRepository.GetById(custObj.AccountTypeId);
-                }
-                catch (Exception exception)
-                {
-                    m_logger.ErrorException(exception);
-                    comission = new ManagedRate { Comment = "???", Id = 0, Rate = 0 };
-                }
+//                ManagedRate comission;
+//                try
+//                {
+//                    comission = ratesRepository.GetById(custObj.AccountTypeId);
+//                }
+//                catch (Exception exception)
+//                {
+//                    m_logger.ErrorException(exception);
+//                    comission = new ManagedRate { Comment = "???", Id = 0, Rate = 0 };
+//                }
 
                 int positionNum = 1;
                 decimal cleanSum = 0;
@@ -219,18 +223,18 @@ namespace VkShopManager.Core
         {
             var orderRepository = DbManger.GetInstance().GetOrderRepository();
             var productRepository = DbManger.GetInstance().GetProductRepository();
-            var ratesRepository = DbManger.GetInstance().GetRatesRepository();
+//            var ratesRepository = DbManger.GetInstance().GetRatesRepository();
 
             var customerExport = new StringBuilder();
             customerExport.AppendLine(String.Format("{0}", customer.GetFullName().ToUpper()));
             customerExport.AppendLine();
 
             // информация о комиссии пользователя
-            ManagedRate comission;
+//            ManagedRate comission;
             List<Order> orders;
             try
             {
-                comission = ratesRepository.GetById(customer.AccountTypeId);
+//                comission = ratesRepository.GetById(customer.AccountTypeId);
                 orders = orderRepository.GetOrdersForCustomerFromAlbum(customer, WorkingAlbum);
             }
             catch (Exception exception)
@@ -277,6 +281,7 @@ namespace VkShopManager.Core
                 positionNum++;
             }
 
+            var comission = customer.GetCommissionInfo();
             var comissionValue = cleanSum*(comission.Rate/100);
             var summary = cleanSum*(1 + (comission.Rate/100));
 
