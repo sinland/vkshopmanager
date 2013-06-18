@@ -8,3 +8,6 @@ current_date
 clear_sum
 comission
 total
+
+
+EOF
