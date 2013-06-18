@@ -972,7 +972,6 @@ namespace VkShopManager
                         return;
                     }
 
-                    // FillAlbumsListAsync();
                     if (m_selectedView == ServiceTreeNodes.AlbumPaymets)
                     {
                         ShowAlbumPaymentsDetails(SelectedAlbum);
@@ -1262,6 +1261,19 @@ namespace VkShopManager
         private void cmdOpenDeliveryList_OnClick(object sender, RoutedEventArgs e)
         {
             new DeliveryTypeSelection(this).ShowDialog();
+        }
+
+        private void btnOpenReportsFolder_Click(object sender, RoutedEventArgs e)
+        {
+            new Process()
+                {
+                    StartInfo =
+                        {
+                            FileName = "explorer.exe",
+                            Arguments = m_settings.ReportsPath
+                        }
+                }.Start();
+
         }
     }
 }

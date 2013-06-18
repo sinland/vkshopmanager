@@ -40,7 +40,6 @@
                 <MenuItem Header="Список покупателей" Name="cmdOpenCustomrsList" Click="cmdOpenCustomrsList_OnClick"  />
                 <Separator />
                 <MenuItem Header="Выход" Name="CmdFileExit" Click="CmdFileExit_OnClick" />
-                <MenuItem Header="Test" Click="CmdTest_OnClick" Visibility="Hidden" />
             </MenuItem>
             <MenuItem Header="Альбом" Padding="10,4,5,5">
                 <MenuItem Header="Загрузить данные" Name="cmdAlbumLoadData" Click="cmdAlbumLoadData_OnClick"  />
@@ -52,6 +51,8 @@
                 <MenuItem Header="Документы" >
                     <MenuItem Header="Лист доставки" Click="cmdPrintDeliveryListClickEventHandler"/>
                     <MenuItem Header="Отчет по разделу" Click="btnExportCurrent_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Открыть каталог с отчетами..." Click="btnOpenReportsFolder_Click"/>
                  </MenuItem>
                 <Separator/>
                 <MenuItem Header="Удалить альбом" Name="cmdAlbumDelete" Click="cmdAlbumDelete_OnClick"  />
