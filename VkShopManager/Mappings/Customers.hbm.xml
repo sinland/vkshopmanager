@@ -10,5 +10,6 @@
     <property name="AccountTypeId" column="type_id" not-null="true"/>
     <property name="Address" column="address" />
     <property name="Phone" column="phone" />
+    <property name="DeliveryTypeId" column="delivery_type_id" not-null="true" />
   </class>
 </hibernate-mapping>

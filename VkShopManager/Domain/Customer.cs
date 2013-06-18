@@ -18,11 +18,15 @@ namespace VkShopManager.Domain
         public virtual int AccountTypeId
         {
             get { return m_accountTypeId; }
-            set { m_accountTypeId = value; OnPropertyChanged("AccountTypeId"); }
+            set
+            {
+                m_accountTypeId = value;
+                OnPropertyChanged("AccountTypeId");
+            }
         }
         public virtual string Address { get; set; }
         public virtual string Phone { get; set; }
-        // public virtual decimal DeliveryTypeId { get; set; }
+        public virtual int DeliveryTypeId { get; set; }
 
         public Customer()
         {
@@ -36,6 +40,13 @@ namespace VkShopManager.Domain
         public override string ToString()
         {
             return GetFullName();
+        }
+        public DeliveryType GetDeliveryInfo()
+        {
+            var mgr = Core.Repositories.DbManger.GetInstance();
+            var repo = mgr.GetDeliveryRepository();
+
+            return repo.GetById(this.DeliveryTypeId);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

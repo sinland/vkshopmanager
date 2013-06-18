@@ -29,7 +29,7 @@ namespace VkShopManager.Core.Repositories
 
         private void AddToCache(Album album)
         {
-            if(!s_idToAlbumCache.ContainsKey(album.Id)) s_idToAlbumCache.Add(album.Id, album);
+            if (!s_idToAlbumCache.ContainsKey(album.Id)) s_idToAlbumCache.Add(album.Id, album);
             if (!s_vkidToAlbumCache.ContainsKey(album.VkId)) s_vkidToAlbumCache.Add(album.VkId, album);
         }
 
@@ -104,7 +104,7 @@ namespace VkShopManager.Core.Repositories
                 using (var s = m_dbManger.OpenSession())
                 {
                     album = s.Get<Album>(id);
-                    if(album != null) s_idToAlbumCache.Add(id, album);
+                    if (album != null) AddToCache(album);
                 }
             }
             
@@ -126,8 +126,8 @@ namespace VkShopManager.Core.Repositories
                     q.SetInt64("vkid", vkid);
                     var res = q.List<Album>();
                     album = res.Count > 0 ? res[0] : null;
-                    
-                    if(album != null) s_vkidToAlbumCache.Add(vkid, album);
+
+                    if (album != null) AddToCache(album);
                 }
             }
 

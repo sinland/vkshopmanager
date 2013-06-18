@@ -60,7 +60,10 @@ namespace VkShopManager.Core.Repositories
         {
             return new PaymentsRepository(this);
         }
-
+        public IDeliveryTypeRepository GetDeliveryRepository()
+        {
+            return new DeliveryTypeRepository(this);
+        }
         public ISession OpenSession()
         {
             return s_session.OpenSession();
@@ -76,5 +79,4 @@ namespace VkShopManager.Core.Repositories
             s_session = s_cfg.BuildSessionFactory();
         }
     }
-
 }

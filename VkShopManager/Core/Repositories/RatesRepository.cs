@@ -89,7 +89,7 @@ namespace VkShopManager.Core.Repositories
                 using (var s = m_dbManger.OpenSession())
                 {
                     rate = s.Get<ManagedRate>(id);
-                    if(rate != null) s_idToRateCache.Add(id, rate);
+                    if (rate != null) AddToCache(rate);
                 }
             }
             return rate;

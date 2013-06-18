@@ -71,7 +71,16 @@
       <DependentUpon>CommentsViewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\ReportsExportFormatter.cs" />
+    <Compile Include="Core\Repositories\DeliveryTypeRepository.cs" />
+    <Compile Include="Core\Repositories\IRepositoryCache.cs" />
     <Compile Include="Core\VisualHelpers\PaymentsListViewItem.cs" />
+    <Compile Include="DeliveryTypeEdit.xaml.cs">
+      <DependentUpon>DeliveryTypeEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeliveryTypeSelection.xaml.cs">
+      <DependentUpon>DeliveryTypeSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\DeliveryType.cs" />
     <Compile Include="PaymentPropertiesWindow.xaml.cs">
       <DependentUpon>PaymentPropertiesWindow.xaml</DependentUpon>
     </Compile>
@@ -132,6 +141,14 @@
       <DependentUpon>WaitingWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="CommentsViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeliveryTypeEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeliveryTypeSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -262,6 +279,7 @@
     <Resource Include="Images\up.png" />
     <Resource Include="Images\down.png" />
     <Resource Include="Images\search.png" />
+    <EmbeddedResource Include="Mappings\DeliveryType.hbm.xml" />
     <Content Include="vkshpmgr.db" />
   </ItemGroup>
   <ItemGroup>

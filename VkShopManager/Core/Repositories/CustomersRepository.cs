@@ -78,7 +78,7 @@ namespace VkShopManager.Core.Repositories
                 using (var s = m_dbManger.OpenSession())
                 {
                     c = s.Get<Customer>(id);
-                    if(c != null) s_idToCustomerCache.Add(id, c);
+                    if (c != null) AddToCache(c);
                 }
             }
 
@@ -100,7 +100,7 @@ namespace VkShopManager.Core.Repositories
                     q.SetInt64("vkid", vkid);
                     var res = q.List<Customer>();
                     c = res.Count > 0 ? res[0] : null;
-                    if (c != null) { s_vkidToCustomerCache.Add(vkid, c);}
+                    if (c != null) AddToCache(c);
                 }
             }
             
