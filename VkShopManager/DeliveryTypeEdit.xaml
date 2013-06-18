@@ -1,0 +1,14 @@
+﻿<Window x:Class="VkShopManager.DeliveryTypeEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Способ доставки" Height="209" Width="447" ResizeMode="NoResize">
+    <Grid>
+        <CheckBox Content="Активен" Height="16" HorizontalAlignment="Left" Margin="16,24,0,0" Name="cbIsActive" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="85,58,0,0" Name="tbComment" VerticalAlignment="Top" Width="315" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="85,98,0,0" Name="tbPrice" VerticalAlignment="Top" Width="119" />
+        <Label Content="Описание:" Height="28" HorizontalAlignment="Left" Margin="12,56,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="Стоимость:" Height="28" HorizontalAlignment="Left" Margin="12,98,0,0" Name="label2" VerticalAlignment="Top" />
+        <Button Content="Отмена" Margin="0,0,12,12" Name="btnCancel" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="btnCancel_Click" />
+        <Button Content="ОК" Margin="0,0,93,12" Name="btnOk" HorizontalAlignment="Right" Width="75" Height="23" VerticalAlignment="Bottom" Click="btnOk_Click" />
+    </Grid>
+</Window>

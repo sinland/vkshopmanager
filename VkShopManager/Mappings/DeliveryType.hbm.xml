@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="VkShopManager" namespace="VkShopManager.Domain">
+  <class name="DeliveryType" lazy="false" table="delivery_types">
+    <id name="Id" column="id" >
+      <generator class="native"/>
+    </id>
+    <property name="IsActive" column="is_active" />
+    <property name="Comment" column="comment" type="string"/>
+    <property name="Price" column="price" not-null="true"/>
+  </class>
+</hibernate-mapping>
