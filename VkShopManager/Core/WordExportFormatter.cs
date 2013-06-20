@@ -209,7 +209,7 @@ namespace VkShopManager.Core
             {
                 doc.Bookmarks[totalSumBookmark].Range.Text = String.Format("Итого: {0:C0}", summary);
             }
-            if (doc.Bookmarks.Exists(addressBookmark) && customer.Address.Length > 0)
+            if (doc.Bookmarks.Exists(addressBookmark))
             {
                 doc.Bookmarks[addressBookmark].Range.Text = customer.Address;
             }
@@ -305,6 +305,7 @@ namespace VkShopManager.Core
                 table.Cell(counter, 1).Range.Text = (counter - 1).ToString();
                 table.Cell(counter, 2).Range.Text = customer.GetFullName();
                 table.Cell(counter, 4).Range.Text = totalItems.ToString();
+                table.Cell(counter, 5).Range.Text = string.Format("{0} ({1})", customer.Address, customer.Phone);
                 counter++;
             }
             try

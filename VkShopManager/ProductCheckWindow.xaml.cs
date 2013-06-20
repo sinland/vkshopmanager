@@ -95,8 +95,9 @@ namespace VkShopManager
                 return;
             }
 
-            m_product.Title = tbTitle.Text;
-            m_product.GenericUrl = tbGenericUrl.Text;
+            m_product.CodeNumber = tbCodeNumber.Text.Trim();
+            m_product.Title = tbTitle.Text.Trim();
+            m_product.GenericUrl = tbGenericUrl.Text.Trim();
             m_dialogResult = Result.Accept;
             DialogResult = true;
             Close();

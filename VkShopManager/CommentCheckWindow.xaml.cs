@@ -104,7 +104,11 @@ namespace VkShopManager
                 this.ShowError("В поле количества допускаются только цифры.");
                 return;
             }
-
+            if (m_requestedOperation == OrderOperation.Add && m_order.Amount == 0)
+            {
+                this.ShowError("Ошибка: Невозможно добавить 0 позиций в заказ!");
+                return;
+            }
             m_order.Comment = tbComment.Text.Trim();
 
             Close();
