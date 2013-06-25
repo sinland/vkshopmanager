@@ -114,10 +114,11 @@ namespace VkShopManager
             try
             {
                 m_product.MinAmount = Int32.Parse(tbMinAmount.Text);
+                if(m_product.MinAmount < 1) throw new ApplicationException();
             }
             catch
             {
-                this.ShowError("Ошибка: Поле количества заполнено не верно.");
+                this.ShowError("Ошибка: Поле количества заполнено не верно. Минимальное количество - 1 шт.");
                 return;
             }
             
@@ -138,6 +139,41 @@ namespace VkShopManager
 
             m_result = Result.Saved;
             Close();
+        }
+
+        private void btnCreateCode_Click(object sender, RoutedEventArgs e)
+        {
+            var generator = new CodeNumberGenerator();
+            var repo = Core.Repositories.DbManger.GetInstance().GetProductRepository();
+            var setting = generator.ConvertToType(RegistrySettings.GetInstance().SelectedCodeNumberGenerator);
+            var prefix = RegistrySettings.GetInstance().CodeNumberAlphaPrefix;
+            var length = RegistrySettings.GetInstance().CodeNumberNumericLength;
+            var code = "";
+            for (int i = 0; i < 1000; i++)
+            {
+                switch (setting)
+                {
+                    case CodeNumberGenerator.Type.NumericOnly:
+                        code = generator.GetNumericCode(length);
+                        break;
+                    case CodeNumberGenerator.Type.AlphaNumeric:
+                        code = generator.GetAlphaNumericCode(length, prefix);
+                        break;
+                    default:
+                        this.ShowError("Ошибка: В конфигурации неверно указан тип артикула!");
+                        break;
+                }
+
+                if (repo.GetByCodeNumber(code).Count == 0) break;
+                else code = "";
+            }
+
+            if (String.IsNullOrEmpty(code))
+            {
+                this.ShowError("Ошибка: Не удалось придумать уникальный артикул!");
+            }
+
+            tbCodeNumber.Text = code;
         }
     }
 }

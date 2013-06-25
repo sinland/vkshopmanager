@@ -28,7 +28,7 @@ namespace VkShopManager.Domain
             get { return m_title; }
             set { m_title = value; OnPropertyChanged("Title"); }
         }
-        public virtual decimal Price
+            public virtual decimal Price
         {
             get { return m_price; }
             set { m_price = value; OnPropertyChanged("Price"); }
@@ -54,10 +54,28 @@ namespace VkShopManager.Domain
         {
 
         }
+
         public override string ToString()
         {
             return (Title.Length > 0) ? Title : base.ToString();
         }
+        
+        public Product CopyToAlbum(Album album)
+        {
+            var p = new Product
+            {
+                AlbumId = album.Id,
+                GenericUrl = this.GenericUrl,
+                ImageFile = this.ImageFile,
+                MinAmount = this.MinAmount,
+                Price = this.Price,
+                Title = this.Title,
+                VkId = this.VkId,
+                CodeNumber = this.CodeNumber
+            };
+            return p;
+        }
+
         public void ParsePhotoDescription(string description)
         {
             var parts = description.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);

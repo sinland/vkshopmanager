@@ -10,6 +10,7 @@ namespace VkShopManager.Domain
     public class Order : INotifyPropertyChanged
     {
         private int m_amount;
+        private Product m_cachedProduct;
 
         /// <summary>
         /// ИД в БД
@@ -29,7 +30,11 @@ namespace VkShopManager.Domain
         public virtual int Amount
         {
             get { return m_amount; }
-            set { m_amount = value; OnPropertyChanged("Amount"); }
+            set
+            {
+                m_amount = value; 
+                OnPropertyChanged("Amount");
+            }
         }
 
         /// <summary>
@@ -47,7 +52,18 @@ namespace VkShopManager.Domain
 
         public Order()
         {
+            m_cachedProduct = null;
+        }
 
+        public Product GetOrderedProduct()
+        {
+            if (m_cachedProduct == null)
+            {
+                var repo = Core.Repositories.DbManger.GetInstance().GetProductRepository();
+                m_cachedProduct = repo.GetById(ProductId);
+            }
+
+            return m_cachedProduct;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

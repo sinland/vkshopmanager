@@ -654,16 +654,16 @@ namespace VkShopManager
             view.Columns.Add(new GridViewColumn
                 {
                     Width = 100,
-                    Header = "Уровень",
+                    Header = "Комиссия",
                     DisplayMemberBinding = new Binding("AccountType"),
                 });
 
-            view.Columns.Add(new GridViewColumn
-                {
-                    Width = 110,
-                    Header = "Позиций в заказе",
-                    DisplayMemberBinding = new Binding("OrderedItemsCount"),
-                });
+//            view.Columns.Add(new GridViewColumn
+//                {
+//                    Width = 110,
+//                    Header = "Позиций в заказе",
+//                    DisplayMemberBinding = new Binding("OrderedItemsCount"),
+//                });
             view.Columns.Add(new GridViewColumn
                 {
                     Width = 110,
@@ -707,8 +707,6 @@ namespace VkShopManager
                     var album = args.Argument as Album;
                     var orderRepository = DbManger.GetInstance().GetOrderRepository();
                     var customersRepository = DbManger.GetInstance().GetCustomersRepository();
-                    var productRepository = DbManger.GetInstance().GetProductRepository();
-                    var ratesRepository = DbManger.GetInstance().GetRatesRepository();
                     var payments = DbManger.GetInstance().GetPaymentsRepository();
 
                     List<Order> albumOrders = null;
@@ -751,23 +749,8 @@ namespace VkShopManager
                                 custObj.GetFullName()));
                         }
                         
-                        
-                        // информация о комиссии пользователя
-//                        ManagedRate rateInfo;
-//                        try
-//                        {
-//                            rateInfo = ratesRepository.GetById(custObj.AccountTypeId);
-//                        }
-//                        catch (Exception exception)
-//                        {
-//                            m_logger.ErrorException(exception);
-//                            rateInfo = new ManagedRate { Comment = "???", Id = 0, Rate = 0 };
-//                        }
-
                         // создание объекта записи в таблице
-                        var clvi = new CustomerListViewItem(custObj) {OrderedItemsCount = 0};
-                        // clvi.ApplyCommission(rateInfo);
-
+                        var clvi = new CustomerListViewItem(custObj);// {OrderedItemsCount = 0};
                         var showEmpty = RegistrySettings.GetInstance().ShowEmptyPositions;
                         var showPartial = RegistrySettings.GetInstance().ShowPartialPositions;
 
@@ -779,10 +762,11 @@ namespace VkShopManager
                             worker.ReportProgress(0, "Получение информации о продукте");
                             try
                             {
-                                productInfo = productRepository.GetById(order.ProductId);
+                                productInfo = order.GetOrderedProduct();
                                 
                                 // посчитать сколько всего заказано этого товара
                                 totalProductOrders = orderRepository.GetProductTotalOrderedAmount(productInfo);
+                                
                                 if (totalProductOrders < productInfo.MinAmount && totalProductOrders > 0 && !showPartial) continue;
                                 if (order.Amount == 0 && !showEmpty) continue;
                             }
@@ -794,7 +778,7 @@ namespace VkShopManager
                             
                             // добавляем к сумме заказа стоимость очередной позиции (кол-во на стоимость единицы)
                             clvi.CleanSum += order.Amount * productInfo.Price;
-                            clvi.OrderedItemsCount += 1;
+                            //clvi.OrderedItemsCount += 1;
 
                             if (totalProductOrders < productInfo.MinAmount && totalProductOrders > 0)
                             {

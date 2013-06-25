@@ -7,22 +7,56 @@ namespace VkShopManager.Domain
 {
     public class ParsedComment
     {
+        /// <summary>
+        /// Идентификатор в БД
+        /// </summary>
         public virtual int Id { get; set; }
+        /// <summary>
+        /// Идентификатор начального объекта вконтакте (может повторяться для разных товаров)
+        /// </summary>
         public virtual Int64 VkId { get; set; }
-        public virtual string UniqueKey { get; set; }
+        /// <summary>
+        /// Идентификатор товара из БД
+        /// </summary>
+        public virtual int ProductId { get; set; }
+        /// <summary>
+        /// Дата парсинга комментария
+        /// </summary>
         public virtual DateTime ParsingDate { get; set; }
+        /// <summary>
+        /// Текст комментария
+        /// </summary>
         public virtual string Message { get; set; }
+        /// <summary>
+        /// Имя отправителя
+        /// </summary>
         public virtual string SenderName { get; set; }
+        /// <summary>
+        /// Дата постинга комментария (по данным вконтакте)
+        /// </summary>
         public virtual string PostingDate { get; set; }
+        
 
         public ParsedComment()
         {
 
         }
 
-        public void SetUniqueKey(long albumId, long productVkId)
+        public Product GetCommentedProduct()
         {
-            UniqueKey = String.Format("{0}-{1}-{2}", albumId, productVkId, this.VkId);
+            var prods = Core.Repositories.DbManger.GetInstance().GetProductRepository();
+            try
+            {
+                var prod = prods.GetById(this.ProductId);
+                return prod;
+            }
+            catch (Exception)
+            {
+                
+                
+            }
+            return null;
         }
+
     }
 }

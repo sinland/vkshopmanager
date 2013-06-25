@@ -1,0 +1,20 @@
+﻿<Window x:Class="VkShopManager.ProductSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Выбор товара" Height="402" Width="510" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow" FontSize="13">
+    <Grid>
+        <ListView Name="lvOrderItems" Margin="0,39,0,37" SelectionChanged="lvOrderItems_SelectionChanged" SelectionMode="Extended">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False" >
+                    <GridViewColumn Width="90" DisplayMemberBinding="{Binding Mode=OneWay, Path=CodeNumber}" Header="Артикул" />
+                    <GridViewColumn Width="300" DisplayMemberBinding="{Binding Mode=OneWay, Path=Title}" Header="Наименование" />
+                    <GridViewColumn Width="90" DisplayMemberBinding="{Binding Mode=OneWay, Path=Price}" Header="Цена" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Закрыть" Height="23" HorizontalAlignment="Right" Margin="0,0,10,8" Name="btnOK" VerticalAlignment="Bottom" Width="75" Click="btnOK_Click" />
+        <Label Content="Альбом:" Height="28" HorizontalAlignment="Left" Margin="6,7,0,0" Name="label1" VerticalAlignment="Top" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="67,10,0,0" Name="cbAlbumsCollection" VerticalAlignment="Top" Width="409" SelectionChanged="cbAlbumsCollection_SelectionChanged" />
+        <Button Content="Добавить" HorizontalAlignment="Right" Margin="0,0,91,8" Name="btnAddProductsToOrder" Width="75" Height="23" VerticalAlignment="Bottom" Click="btnAddProductsToOrder_Click" />
+    </Grid>
+</Window>

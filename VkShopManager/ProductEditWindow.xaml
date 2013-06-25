@@ -34,5 +34,6 @@
         </GroupBox>
         <Label Content="Артикул:" Height="28" HorizontalAlignment="Left" Margin="231,125,0,0" Name="label5" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,129,116,0" Name="tbCodeNumber" TabIndex="1" VerticalAlignment="Top" Width="205" />
+        <Button Content="Новый" Height="23" HorizontalAlignment="Left" Margin="523,129,0,0" Name="btnCreateCode" VerticalAlignment="Top" Width="75" Click="btnCreateCode_Click" />
     </Grid>
 </Window>

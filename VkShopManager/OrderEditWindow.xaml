@@ -10,20 +10,20 @@
             <RowDefinition/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        
         <Button BorderThickness="0" Width="24" Height="24" Margin="5, 2,2,2" Click="btnEditSelectedOrderAmountClickEventHandler" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/search.png" />
             </StackPanel>
         </Button>
+        
         <Button BorderThickness="0" Width="24" Height="24" Margin="34, 2, 2, 2" Click="btnExportClickHandler" HorizontalAlignment="Left">
             <Image Source="Images/printer.png" />
         </Button>
         <Button BorderThickness="0" Width="24" Height="24" Margin="63, 2, 2, 2" HorizontalAlignment="Left" Click="btnAddPaymentClickHandler">
             <Image Source="Images/coins.png" />
         </Button>
-        <Button BorderThickness="0" Width="24" Height="24" Margin="92, 2, 2, 2" HorizontalAlignment="Left" Visibility="Hidden">
-            <Image Source="Images/comment.png" />
+        <Button BorderThickness="0" Width="24" Height="24" Margin="92, 2, 2, 2" HorizontalAlignment="Left" Visibility="Visible" Click="btnAddProductToOrder">
+            <Image Source="Images/add.png" />
         </Button>
         <Button Grid.Row="1" Width="30" Height="23" HorizontalAlignment="Left" Margin="5,0,0,0" Name="btnEditCustomer" Click="btnEditCustomer_Click">
             <Image Source="Images/user.png"></Image>    

@@ -29,7 +29,7 @@ namespace VkShopManager.Domain
 
         public override string ToString()
         {
-            return Title.Length > 0 ? Title : base.ToString();
+            return Title.Length > 0 ? GetCleanTitle() : base.ToString();
         }
     }
 }

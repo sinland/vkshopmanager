@@ -123,7 +123,7 @@ namespace VkShopManager.Core
                     decimal sum = order.Amount * productInfo.Price;
                     cleanSum += sum;
 
-                    var title = order.Comment.Length > 0
+                    var title = !String.IsNullOrEmpty(order.Comment)
                                     ? String.Format("{0} ({1})", productInfo.Title, order.Comment)
                                     : productInfo.Title;
                     customerExport.AppendLine(String.Format("{0}{1}. {2} | {3}шт. | {4:C}", positionNum, partialIndicator, title, order.Amount, sum));

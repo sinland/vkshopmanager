@@ -121,5 +121,40 @@ namespace VkShopManager
                 btnSkip_Click(sender, null);
             }
         }
+
+        private void btnCreateCode_Click(object sender, RoutedEventArgs e)
+        {
+            var generator = new CodeNumberGenerator();
+            var repo = Core.Repositories.DbManger.GetInstance().GetProductRepository();
+            var setting = generator.ConvertToType(RegistrySettings.GetInstance().SelectedCodeNumberGenerator);
+            var prefix = RegistrySettings.GetInstance().CodeNumberAlphaPrefix;
+            var length = RegistrySettings.GetInstance().CodeNumberNumericLength;
+            var code = "";
+            for (int i = 0; i < 1000; i++)
+            {
+                switch (setting)
+                {
+                    case CodeNumberGenerator.Type.NumericOnly:
+                        code = generator.GetNumericCode(length);
+                        break;
+                    case CodeNumberGenerator.Type.AlphaNumeric:
+                        code = generator.GetAlphaNumericCode(length, prefix);
+                        break;
+                    default:
+                        this.ShowError("Ошибка: В конфигурации неверно указан тип артикула!");
+                        break;
+                }
+
+                if (repo.GetByCodeNumber(code).Count == 0) break;
+                else code = "";
+            }
+
+            if (String.IsNullOrEmpty(code))
+            {
+                this.ShowError("Ошибка: Не удалось придумать уникальный артикул!");
+            }
+
+            tbCodeNumber.Text = code;
+        }
     }
 }

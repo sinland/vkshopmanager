@@ -14,6 +14,7 @@ namespace VkShopManager.Core
             Write,
             ReadOnly
         }
+        
         private static RegistrySettings s_sigleton;
 
         public static RegistrySettings GetInstance()
@@ -115,6 +116,41 @@ namespace VkShopManager.Core
             get { return GetValue("WorkGroupId") == null ? 0 : Int32.Parse(GetValue("WorkGroupId").ToString()); }
             set { SetValue("WorkGroupId", value, RegistryValueKind.DWord); }
         }
+        public int SelectedCodeNumberGenerator
+        {
+            get { return GetValue("SelectedCodeNumberGenerator") == null ? 0 : Int32.Parse(GetValue("SelectedCodeNumberGenerator").ToString()); }
+            set { SetValue("SelectedCodeNumberGenerator", value, RegistryValueKind.DWord); }
+        }
+        public int CodeNumberNumericLength
+        {
+            get
+            {
+                var v = GetValue("CodeNumberNumericLength");
+                if (v == null)
+                {
+                    SetValue("CodeNumberNumericLength", 6, RegistryValueKind.DWord);
+                    return 6;
+                }
+                return Int32.Parse(v.ToString());
+
+            }
+            set { SetValue("CodeNumberNumericLength", value, RegistryValueKind.DWord); }
+        }
+        public string CodeNumberAlphaPrefix
+        {
+            get
+            {
+                var v = GetValue("CodeNumberAlphaPrefix");
+                if (v == null)
+                {
+                    SetValue("CodeNumberAlphaPrefix", @"SM", RegistryValueKind.String);
+                    return @"SM";
+                }
+
+                return v.ToString();
+            }
+            set { SetValue("CodeNumberNumericLength", value, RegistryValueKind.String); }
+        }
         public void SetExpiration(int secondsToExpire)
         {
             var dt = DateTime.Now.AddSeconds(secondsToExpire);
@@ -145,6 +181,10 @@ namespace VkShopManager.Core
             get { return GetValue("ShowEmptyPositions") != null && Boolean.Parse(GetValue("ShowEmptyPositions").ToString()); }
             set { SetValue("ShowEmptyPositions", value, RegistryValueKind.String); }
         }
+        /// <summary>
+        /// Список vk_id альбомов, отображение которых скрыто
+        /// </summary>
+        /// <returns></returns>
         public List<long> GetHiddenList()
         {
             var res = new List<long>();

@@ -5,15 +5,15 @@
     <Grid>
         <Image Height="177" HorizontalAlignment="Left" Margin="12,59,0,0" Name="image1" Stretch="Uniform" VerticalAlignment="Top" Width="203" />
         <Label Content="Наименование:" Height="28" HorizontalAlignment="Left" Margin="236,198,0,0" Name="label1" VerticalAlignment="Top" />
-        <TextBox Height="53" HorizontalAlignment="Left" Margin="242,226,0,0" Name="tbTitle" VerticalAlignment="Top" Width="363" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" TabIndex="2" />
+        <TextBox Height="53" HorizontalAlignment="Left" Margin="242,226,0,0" Name="tbTitle" VerticalAlignment="Top" Width="363" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" TabIndex="3" />
         <Label Content="Цена:" Height="28" HorizontalAlignment="Left" Margin="240,285,0,0" Name="label2" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="287,287,0,0" Name="tbPrice" VerticalAlignment="Top" Width="65" TabIndex="3" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="287,287,0,0" Name="tbPrice" VerticalAlignment="Top" Width="65" TabIndex="4" />
         <Label Content="Минимум:" Height="28" HorizontalAlignment="Left" Margin="467,285,0,0" Name="label3" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="540,287,0,0" Name="tbMinAmount" VerticalAlignment="Top" Width="65" TabIndex="4" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="540,287,0,0" Name="tbMinAmount" VerticalAlignment="Top" Width="65" TabIndex="5" />
         <Label Content="Ссылка:" Height="28" HorizontalAlignment="Left" Margin="231,103,0,0" Name="label4" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="236,126,0,0" Name="tbGenericUrl" VerticalAlignment="Top" Width="363" TabIndex="0" />
 
-        <Button Height="23" Width="130" HorizontalAlignment="Right" Margin="0,0,283,18" Name="btnAccept" VerticalAlignment="Bottom" Click="btnAccept_Click" TabIndex="5">
+        <Button Height="23" Width="130" HorizontalAlignment="Right" Margin="0,0,283,18" Name="btnAccept" VerticalAlignment="Bottom" Click="btnAccept_Click" TabIndex="6">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="Images/accept.png" />
@@ -22,7 +22,7 @@
             </Button.Content>
         </Button>
         
-        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,147,18" Name="btnSkip" VerticalAlignment="Bottom" Width="130" Click="btnSkip_Click" TabIndex="6">
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,147,18" Name="btnSkip" VerticalAlignment="Bottom" Width="130" Click="btnSkip_Click" TabIndex="7">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="Images/skip.png" />
@@ -30,7 +30,7 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,20,18" Name="btnBreak" VerticalAlignment="Bottom" Width="120" Click="btnBreak_Click" TabIndex="7">
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,20,18" Name="btnBreak" VerticalAlignment="Bottom" Width="120" Click="btnBreak_Click" TabIndex="8">
         <Button.Content>
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/delete.png" />
@@ -41,6 +41,7 @@
         <TextBox IsReadOnly="True" Height="69" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Left" Margin="236,36,0,0" Name="tbSourceDescription" VerticalAlignment="Top" Width="363" TextWrapping="Wrap" />
         <Label Content="Исходное описание:" Height="28" HorizontalAlignment="Left" Margin="231,8,0,0" Name="label5" VerticalAlignment="Top" />
         <Label Content="Артикул:" Height="28" HorizontalAlignment="Left" Margin="236,160,0,0" Name="label6" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="298,164,0,0" Name="tbCodeNumber" TabIndex="1" VerticalAlignment="Top" Width="301" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="298,164,0,0" Name="tbCodeNumber" TabIndex="1" VerticalAlignment="Top" Width="217" />
+        <Button Content="Новый" Height="23" HorizontalAlignment="Left" Margin="524,164,0,0" Name="btnCreateCode" VerticalAlignment="Top" Width="75" TabIndex="2" Click="btnCreateCode_Click" />
     </Grid>
 </Window>

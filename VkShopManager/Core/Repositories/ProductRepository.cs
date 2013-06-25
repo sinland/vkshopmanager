@@ -14,6 +14,7 @@ namespace VkShopManager.Core.Repositories
         Product GetById(int id);
         List<Product> GetByVkId(Int64 vkid);
         List<Product> GetAllFromAlbum(Album album);
+        List<Product> GetByCodeNumber(string code);
     }
 
     class ProductRepository : IProductRepository
@@ -118,6 +119,16 @@ namespace VkShopManager.Core.Repositories
                 IQuery q = s.CreateQuery("from Product as a where a.AlbumId = :aid");
                 q.SetInt32("aid", album.Id);
                 return  (List<Product>) q.List<Product>();
+            }
+        }
+
+        public List<Product> GetByCodeNumber(string code)
+        {
+            using (var s = m_dbManger.OpenSession())
+            {
+                IQuery q = s.CreateQuery("from Product as a where a.CodeNumber = :aid");
+                q.SetString("aid", code);
+                return (List<Product>)q.List<Product>();
             }
         }
     }

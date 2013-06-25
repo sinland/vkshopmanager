@@ -1,7 +1,7 @@
 ﻿<Window x:Class="VkShopManager.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Настройки" Height="292" Width="568" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        Title="Настройки" Height="333" Width="568" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -16,7 +16,9 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="12,86,0,0" Name="tbWorkgroupId" VerticalAlignment="Top" Width="150" />
                     <Label Content="Срок годности токена:" Height="28" Margin="10,118,0,0" Name="label3" VerticalAlignment="Top" HorizontalAlignment="Left" />
                     <Label Content="..." Height="28" HorizontalAlignment="Left" Margin="143,118,0,0" Name="lblTokenLifeTime" VerticalAlignment="Top" />
-                    <CheckBox Content="Очистить каталог с отчетами при выходе из приложения" Height="16" HorizontalAlignment="Left" Margin="12,152,0,0" Name="cbEnableAutoClear" VerticalAlignment="Top" />
+                    <CheckBox Content="Очистить каталог с отчетами при выходе из приложения" Height="16" HorizontalAlignment="Left" Margin="15,193,0,0" Name="cbEnableAutoClear" VerticalAlignment="Top" />
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="185,155,0,0" Name="cbCodeNumberTypes" VerticalAlignment="Top" Width="168" />
+                    <Label Content="Используемый тип артикула:" Height="28" HorizontalAlignment="Left" Margin="10,152,0,0" Name="label4" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
             <TabItem Header="Скрытые альбомы" Name="tabItem2">
@@ -28,9 +30,9 @@
             </TabItem>
         </TabControl>
         
-        <Button Content="Отмена" Height="23" HorizontalAlignment="Right"  Name="btnCancel" Margin="0,0,10,5" Width="75" Grid.Row="1" Click="btnCancel_Click" />
-        <Button Content="ОК" Height="23" HorizontalAlignment="Right" Margin="0,0,95,5"  Name="btnOK" Width="75" Grid.Row="1" Click="btnOK_Click" />
-        <Button Content="Пересоздать БД" Height="23" HorizontalAlignment="Left" Margin="10,0,95,5"  Name="btnCreateNewDb" Width="110" Grid.Row="1" Click="btnCreateNewDb_Click" />
+        <Button Content="Отмена" Height="23" HorizontalAlignment="Right"  Name="btnCancel" Margin="0,0,10,5" Width="75" Grid.Row="1" Click="btnCancel_Click" VerticalAlignment="Bottom" />
+        <Button Content="ОК" Height="23" HorizontalAlignment="Right" Margin="0,0,95,5"  Name="btnOK" Width="75" Grid.Row="1" Click="btnOK_Click" VerticalAlignment="Bottom" />
+        <Button Content="Пересоздать БД" Height="23" HorizontalAlignment="Left" Margin="10,0,0,5"  Name="btnCreateNewDb" Width="110" Grid.Row="1" Click="btnCreateNewDb_Click" Visibility="Visible" VerticalAlignment="Bottom" />
     </Grid>
 </Window>
 

@@ -39,15 +39,17 @@ namespace VkShopManager.Core.VisualHelpers
             get { return m_orderInfo; }
         }
         public Product SourceProduct { get { return m_productInfo; } }
+        
         public string Comment { get { return m_orderInfo.Comment; } }
+        
         public string Status { get; set; }
 
-        public OrderListViewItem(Order orderInfo, Product productInfo , ManagedRate comission)
+        public OrderListViewItem(Order orderInfo, ManagedRate comission)
         {
             m_orderInfo = orderInfo;
-            m_productInfo = productInfo;
+            m_productInfo = orderInfo.GetOrderedProduct();
             m_comission = comission;
-            m_productInfo.PropertyChanged += m_productInfo_PropertyChanged;
+
             m_orderInfo.PropertyChanged += OrderInfoOnPropertyChanged;
         }
 
@@ -64,11 +66,6 @@ namespace VkShopManager.Core.VisualHelpers
             {
                 OnPropertyChanged(propertyChangedEventArgs.PropertyName);   
             }
-        }
-
-        void m_productInfo_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            OnPropertyChanged(e.PropertyName);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

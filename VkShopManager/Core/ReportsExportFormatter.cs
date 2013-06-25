@@ -306,7 +306,7 @@ namespace VkShopManager.Core
                                 BorderBrush = borderColor
                             });
 
-                            var title = prod.Comment.Length > 0
+                            var title = !String.IsNullOrEmpty(prod.Comment)
                                             ? String.Format("{0} ({1})", prod.Title, prod.Comment)
                                             : prod.Title;
                             row.Cells.Add(new TableCell(new Paragraph(new Run(title)))

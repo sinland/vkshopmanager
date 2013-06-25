@@ -67,9 +67,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AlbumSelectionWindow.xaml.cs">
+      <DependentUpon>AlbumSelectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CommentsViewWindow.xaml.cs">
       <DependentUpon>CommentsViewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\CodeNumberGenerator.cs" />
     <Compile Include="Core\ReportsExportFormatter.cs" />
     <Compile Include="Core\Repositories\DeliveryTypeRepository.cs" />
     <Compile Include="Core\Repositories\IRepositoryCache.cs" />
@@ -130,6 +134,9 @@
     <Compile Include="ProductEditWindow.xaml.cs">
       <DependentUpon>ProductEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProductSelectionWindow.xaml.cs">
+      <DependentUpon>ProductSelectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ReportsViewerWindow.xaml.cs">
       <DependentUpon>ReportsViewerWindow.xaml</DependentUpon>
@@ -140,6 +147,10 @@
     <Compile Include="WaitingWindow.xaml.cs">
       <DependentUpon>WaitingWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AlbumSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CommentsViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,6 +226,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProductSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ReportsViewerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -250,6 +265,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Libs\nhibernate-configuration.xsd">
       <SubType>Designer</SubType>
     </None>

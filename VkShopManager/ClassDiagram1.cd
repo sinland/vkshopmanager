@@ -1,0 +1,717 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VkShopManager.AlbumSelectionWindow" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAACAAQEAAAAAAAAABAAAAAAAAEAAAAAAQAA=</HashCode>
+      <FileName>AlbumSelectionWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.App" Collapsed="true">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.AskExportSettingsWindow" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAASAAgAAAAAAAcAABAAAAAAAAEAAAACAAAA=</HashCode>
+      <FileName>AskExportSettingsWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.ChangeAmountWindow" Collapsed="true">
+    <Position X="26" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAABEAAAAgAAGEAAACAAAA=</HashCode>
+      <FileName>ChangeAmountWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.CommentCheckWindow" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAACBAAAAAEEAAQBEAFAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>CommentCheckWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.CommentsViewWindow" Collapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>CommentsViewWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.CustomerEditWindow" Collapsed="true">
+    <Position X="26" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAABAAAAAAAAAAQBAAAAAAIAAAAAA=</HashCode>
+      <FileName>CustomerEditWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.CustomersSelectionWindow" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAgAACAAQAAAAAAAAAAAAAgAAAAAGAAABAAAAE=</HashCode>
+      <FileName>CustomersSelectionWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.DeliveryTypeEdit" Collapsed="true">
+    <Position X="19" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAEAABAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>DeliveryTypeEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.DeliveryTypeSelection" Collapsed="true">
+    <Position X="22.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAQgAAAQAIAAAAAAIAAAAAAAAAABAAAAAAAQI=</HashCode>
+      <FileName>DeliveryTypeSelection.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.MainWindow" Collapsed="true">
+    <Position X="19" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AChAMAiTkgAoIgAEIABBAAAAQAAgiAgkESEUQkAAxCI=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.OrderEditWindow" Collapsed="true">
+    <Position X="13.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgAgAAIgAQCAIgACIBAAAAAABBAQAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>OrderEditWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.PaymentPropertiesWindow" Collapsed="true">
+    <Position X="20.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAEAgBAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>PaymentPropertiesWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.ProductCheckWindow" Collapsed="true">
+    <Position X="26" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAIgAAAAAAEgAIAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>ProductCheckWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.ProductCustomersView" Collapsed="true">
+    <Position X="12" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAACIAAAAAgAAJAAAAAAAAAgAACAAAAAAEQA=</HashCode>
+      <FileName>ProductCustomersView.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.ProductEditWindow" Collapsed="true">
+    <Position X="13.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAACIAAAAAAAAAAAABAAAQBAAAEAAAAAAAAA=</HashCode>
+      <FileName>ProductEditWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.ReportsViewerWindow" Collapsed="true">
+    <Position X="26" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>ReportsViewerWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.SettingsWindow" Collapsed="true">
+    <Position X="15.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAQgAAAAAAQMAABAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>SettingsWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.WaitingWindow" Collapsed="true">
+    <Position X="22.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WaitingWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.CodeNumberGenerator" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Core\CodeNumberGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.CommonExtensions" Collapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAggAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CommonExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.ExportFormatterBase" Collapsed="true">
+    <Position X="2.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAGAAGAAgAAAAAAAAAAggAAAAAAAAACgAAA=</HashCode>
+      <FileName>Core\ExportFormatterBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.ExportProgressReportArgs" Collapsed="true">
+    <Position X="24.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Core\ExportFormatterBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.FileDownloader" Collapsed="true">
+    <Position X="26" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\FileDownloader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.InternalTests" Collapsed="true">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAACAAAAAAAAAAAAEACAAAAAAA=</HashCode>
+      <FileName>Core\InternalTests.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.PlainTextExportFormatter" Collapsed="true">
+    <Position X="5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIACAQAAEgAAAAAAAAAAAgAgAAAAAIAAgAAA=</HashCode>
+      <FileName>Core\PlainTextExportFormatter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VkShopManager.Core.RegistrySettings" Collapsed="true">
+    <Position X="24.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBAAAAIAAhAgKEIAAAAAAAVAAAwAAAADACAAoAAAA=</HashCode>
+      <FileName>Core\RegistrySettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.ReportsExportFormatter" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIACAAAAEgAQAAAAAAAAAgAgAAAgAAAAgAEA=</HashCode>
+      <FileName>Core\ReportsExportFormatter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VkShopManager.Core.VkObjectsWrapper" Collapsed="true">
+    <Position X="20.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\VkObjectsWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.WordExportFormatter" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIACAQAAEgAAAAQAgAAAAgQAAAAAAIAAgAAA=</HashCode>
+      <FileName>Core\WordExportFormatter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VkShopManager.Core.Repositories.AlbumsRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAACABAAAAAAhAAAAAAAAAAAUAAAAAAgAgAAAQAIA=</HashCode>
+      <FileName>Core\Repositories\AlbumsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Core.Repositories.CommentsRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Core\Repositories\CommentsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Core.Repositories.CustomersRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAACABACAAAAgAAAAAAAAAAAUAAAAAAIAgAAAAAoA=</HashCode>
+      <FileName>Core\Repositories\CustomersRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Core.Repositories.DbManger" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAkAAAACACAgAACIAkAQAAAABgMEAAAAAAAA0AAAAAg=</HashCode>
+      <FileName>Core\Repositories\DbManger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.Repositories.DeliveryTypeRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAABAAAAAAgAAAAQAAAAAAUAAAAAAIAgAAAAAIA=</HashCode>
+      <FileName>Core\Repositories\DeliveryTypeRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Core.Repositories.OrderRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAABIAAAAAgAAQAAAAgAAAUAAAAAAgAgAgAAQAA=</HashCode>
+      <FileName>Core\Repositories\OrderRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Core.Repositories.PaymentsRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAQACAAAAAAAAAAAAAAAQAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Core\Repositories\PaymentsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Core.Repositories.ProductRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAACABAAAAAAgQAAIAAAAAAAUAAAAAIAAgAAAAAIA=</HashCode>
+      <FileName>Core\Repositories\ProductRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Core.Repositories.RatesRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAABAAAAAAgAAAAAAAAAAAUAAAAAAgAgBAAAAIA=</HashCode>
+      <FileName>Core\Repositories\RatesRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Core.VisualHelpers.BgWorkerException" Collapsed="true">
+    <Position X="20.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\VisualHelpers\BgWorkerException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.VisualHelpers.CurrencyVisualiser" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAMAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\VisualHelpers\CurrencyVisualiser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Core.VisualHelpers.CustomerListViewItem" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAIAEAoAAEIAAIIQAAAAggBEAAAAAEBAQQCAIAAA=</HashCode>
+      <FileName>Core\VisualHelpers\CustomerListViewItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VkShopManager.Core.VisualHelpers.CustomListViewItem" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Core\VisualHelpers\CustomListViewItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Core.VisualHelpers.OrderListViewItem" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAkAAAAAECAIAQAAACBgABAAAAAIAAQAAAAAMQ=</HashCode>
+      <FileName>Core\VisualHelpers\OrderListViewItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VkShopManager.Core.VisualHelpers.PaymentsListViewItem" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAEEAAIBQAAACggAAAAAABABAQQAAIBAA=</HashCode>
+      <FileName>Core\VisualHelpers\PaymentsListViewItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VkShopManager.Core.VisualHelpers.ProductCustomerListViewItem" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAMAAgAAAAAIAQAAAAAwABgAAAAAAARAAAAAIA=</HashCode>
+      <FileName>Core\VisualHelpers\ProductCustomerListViewItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VkShopManager.Core.VisualHelpers.ProductListViewItem" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAAAEAwABEEAAIAQgAAAAgAAgAAACABAQQAAYAAA=</HashCode>
+      <FileName>Core\VisualHelpers\ProductListViewItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VkShopManager.Domain.Album" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAAAAAAIAAEAEAAAAAAgAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Domain\Album.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Domain.Customer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAFAAAAAAACAEIEACAAiAgQAAAAAKAQAAIBAAAAg=</HashCode>
+      <FileName>Domain\Customer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Domain.DeliveryType" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAQAAAAgEMAAAAAAAgAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Domain\DeliveryType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Domain.ManagedRate" Collapsed="true">
+    <Position X="20.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAAAEAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ManagedRate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Domain.Order" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAADAAAEAAAAAAAAIAAAAACAgAAAABABAgAAAAAAAAA=</HashCode>
+      <FileName>Domain\Order.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Domain.ParsedComment" Collapsed="true">
+    <Position X="17.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAIBCgAAA=</HashCode>
+      <FileName>Domain\ParsedComment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Domain.Payment" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAAAAAIAAAAACAgAAAAAABAAAAAAQAAAA=</HashCode>
+      <FileName>Domain\Payment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Domain.Product" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wCACAAAIAwAAAEBEIAQAAAkIgAAAAAACQAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Product.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VkShopManager.Annotations.LocalizationRequiredAttribute" Collapsed="true">
+    <Position X="17.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.StringFormatMethodAttribute" Collapsed="true">
+    <Position X="17.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.InvokerParameterNameAttribute" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.NotifyPropertyChangedInvocatorAttribute" Collapsed="true">
+    <Position X="24.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.CanBeNullAttribute" Collapsed="true">
+    <Position X="22.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.NotNullAttribute" Collapsed="true">
+    <Position X="26" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.ContractAnnotationAttribute" Collapsed="true">
+    <Position X="20.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.CannotApplyEqualityOperatorAttribute" Collapsed="true">
+    <Position X="24.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.BaseTypeRequiredAttribute" Collapsed="true">
+    <Position X="19" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.UsedImplicitlyAttribute" Collapsed="true">
+    <Position X="19" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.MeansImplicitUseAttribute" Collapsed="true">
+    <Position X="22.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.PublicAPIAttribute" Collapsed="true">
+    <Position X="17.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.InstantHandleAttribute" Collapsed="true">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.PureAttribute" Collapsed="true">
+    <Position X="19" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.PathReferenceAttribute" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcActionAttribute" Collapsed="true">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcAreaAttribute" Collapsed="true">
+    <Position X="5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcControllerAttribute" Collapsed="true">
+    <Position X="24.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcMasterAttribute" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcModelTypeAttribute" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcPartialViewAttribute" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcSupressViewErrorAttribute" Collapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcDisplayTemplateAttribute" Collapsed="true">
+    <Position X="26" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcEditorTemplateAttribute" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcViewAttribute" Collapsed="true">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.AspMvcActionSelectorAttribute" Collapsed="true">
+    <Position X="22.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Annotations.RazorSectionAttribute" Collapsed="true">
+    <Position X="22.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Properties.Resources" Collapsed="true">
+    <Position X="12" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VkShopManager.Properties.Settings" Collapsed="true">
+    <Position X="13.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="VkShopManager.Core.IFileExporter" Collapsed="true">
+    <Position X="19" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\ExportFormatterBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.IReportExporter" Collapsed="true">
+    <Position X="12" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Core\ExportFormatterBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.Repositories.IAlbumsRepository" Collapsed="true">
+    <Position X="12" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAACAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Core\Repositories\AlbumsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.Repositories.ICommentsRepository" Collapsed="true">
+    <Position X="13.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Core\Repositories\CommentsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.Repositories.ICustomersRepository" Collapsed="true">
+    <Position X="15.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAACAAAAAAAAAAAAAAAAAAAAEAAAAAAIAAAAAAAIA=</HashCode>
+      <FileName>Core\Repositories\CustomersRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.Repositories.IDeliveryTypeRepository" Collapsed="true">
+    <Position X="17.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAIAAAAAAAIA=</HashCode>
+      <FileName>Core\Repositories\DeliveryTypeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.Repositories.IRepositoryCache" Collapsed="true">
+    <Position X="13.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Repositories\IRepositoryCache.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.Repositories.IOrderRepository" Collapsed="true">
+    <Position X="20.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAIAAAAAAAAQAAAAAAAAEAAAAAAgAAAgAAQAA=</HashCode>
+      <FileName>Core\Repositories\OrderRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.Repositories.IPaymentsRepository" Collapsed="true">
+    <Position X="22.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAQACAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Core\Repositories\PaymentsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.Repositories.IProductRepository" Collapsed="true">
+    <Position X="24.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAACAAAAAAAAAQAAAAAAAAAAEAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Core\Repositories\ProductRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.Repositories.IRatesRepository" Collapsed="true">
+    <Position X="26" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Core\Repositories\RatesRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VkShopManager.Core.VisualHelpers.ISelectable" Collapsed="true">
+    <Position X="15.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAQAAIAAA=</HashCode>
+      <FileName>Core\VisualHelpers\ISelectable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="VkShopManager.Core.OrderOperation" Collapsed="true">
+    <Position X="15.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAABAAAAAAAABAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Core\OrderOperation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="VkShopManager.Annotations.ImplicitUseKindFlags" Collapsed="true">
+    <Position X="12" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAABAEAAAAAAIAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="VkShopManager.Annotations.ImplicitUseTargetFlags" Collapsed="true">
+    <Position X="13.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAAEAAAAAAQ=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

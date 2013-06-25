@@ -1,0 +1,9 @@
+﻿<Window x:Class="VkShopManager.AlbumSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Выбор альбома..." Height="412" Width="310" FontSize="13" WindowStartupLocation="CenterOwner" MaxWidth="310">
+    <Grid>
+        <ListBox HorizontalAlignment="Left" Margin="12,12,0,49" Name="lbAlbums" Width="265" SelectionChanged="lbAlbums_SelectionChanged" />
+        <Button Content="ОК" Height="23" Margin="0,0,12,12" Name="button1" VerticalAlignment="Bottom" Click="button1_Click" HorizontalAlignment="Right" Width="75" />
+    </Grid>
+</Window>

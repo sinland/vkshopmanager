@@ -37,8 +37,9 @@ namespace VkShopManager.Core.Repositories
         {
             using (var s = m_dbManger.OpenSession())
             {
-                IQuery q = s.CreateQuery("from ParsedComment as a where a.UniqueKey = :uk");
-                q.SetString("uk", comment.UniqueKey);
+                IQuery q = s.CreateQuery("from ParsedComment as a where a.ProductId = :pid and a.VkId = :vkid");
+                q.SetInt32("pid", comment.ProductId);
+                q.SetInt64("vkid", comment.VkId);
                 var res = q.List<ParsedComment>();
                 return res.Count > 0;
             }
@@ -48,18 +49,9 @@ namespace VkShopManager.Core.Repositories
         {
             using (var s = m_dbManger.OpenSession())
             {
-                IQuery q = s.CreateQuery("from ParsedComment as a where a.UniqueKey like :p");
-                q.SetString("p", String.Format("{0}-{1}-%", p.AlbumId, p.VkId));
+                IQuery q = s.CreateQuery("from ParsedComment as a where a.ProductId = :pid");
+                q.SetInt32("pid", p.Id);
                 var res = (List<ParsedComment>) q.List<ParsedComment>();
-
-                // depricated stub:
-                if (res.Count == 0)
-                {
-                    q = s.CreateQuery("from ParsedComment as a where a.UniqueKey like :p");
-                    q.SetString("p", String.Format("{0}_%", p.VkId));
-                    res = (List<ParsedComment>)q.List<ParsedComment>();
-                }
-
                 return res;
             }
         }

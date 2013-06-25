@@ -13,7 +13,6 @@ namespace VkShopManager.Domain
         private int m_accountTypeId;
         private DeliveryType m_deliveryType;
         private ManagedRate m_comissionRate;
-
         private int m_deliveryTypeId;
 
         public virtual int Id { get; set; }

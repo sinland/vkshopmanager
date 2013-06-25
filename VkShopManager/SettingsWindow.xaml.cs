@@ -48,21 +48,20 @@ namespace VkShopManager
             lblTokenLifeTime.Content = m_settings.ExpirationDate.ToString();
             cbEnableAutoClear.IsChecked = m_settings.ClearReportsOnExit;
 
+            var indx = cbCodeNumberTypes.Items.Add(CodeNumberGenerator.Type.NumericOnly);
+            if (m_settings.SelectedCodeNumberGenerator == (int) CodeNumberGenerator.Type.NumericOnly)
+                cbCodeNumberTypes.SelectedIndex = indx;
+            indx = cbCodeNumberTypes.Items.Add(CodeNumberGenerator.Type.AlphaNumeric);
+            if (m_settings.SelectedCodeNumberGenerator == (int)CodeNumberGenerator.Type.AlphaNumeric)
+                cbCodeNumberTypes.SelectedIndex = indx;
+
+
             var bg = new BackgroundWorker();
             bg.DoWork += (sender, args) =>
                 {
                     var albums = DbManger.GetInstance().GetAlbumsRepository();
                     var hiddens = m_settings.GetHiddenList();
-                    
-                    var res = new List<Album>();
-                    foreach (long hidden in hiddens)
-                    {
-                        var a = albums.GetByVkId(hidden);
-                        if (a != null)
-                        {
-                            res.Add(a);
-                        }
-                    }
+                    var res = hiddens.Select(albums.GetByVkId).Where(a => a != null).ToList();
 
                     res.Sort((a1, a2) => String.Compare(a1.Title, a2.Title, StringComparison.CurrentCultureIgnoreCase));
                     args.Result = res;
@@ -113,6 +112,7 @@ namespace VkShopManager
             m_settings.WorkGroupId = gid;
             m_result = Result.Ok;
             m_settings.ClearReportsOnExit = cbEnableAutoClear.IsChecked.HasValue && cbEnableAutoClear.IsChecked.Value;
+            m_settings.SelectedCodeNumberGenerator = (int) (CodeNumberGenerator.Type) cbCodeNumberTypes.SelectedItem;
 
             Close();
         }

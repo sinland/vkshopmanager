@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using VkShopManager.Core;
 using VkShopManager.Core.VisualHelpers;
 using VkShopManager.Domain;
@@ -27,25 +28,26 @@ namespace VkShopManager
         private readonly CustomerListViewItem m_customerItem;
         private readonly Customer m_customer;
         private readonly Album m_album;
-        // private ManagedRate m_comission;
-        private Result m_result = Result.None;
-        
+
+        private readonly List<Order> m_orders;
         private string m_statusBackup;
         private Cursor m_cursorBackup;
         private readonly RegistrySettings m_settings;
+        private decimal m_totalComission = 0;
+        private decimal m_totalClean = 0;
+        private decimal m_totalSum = 0;
 
-        public enum Result
-        {
-            None,
-            Changed
-        }
+
+        private CustomerListViewItem m_sourceListViewItem;
 
         public OrderEditWindow(Window owner, CustomerListViewItem customer, Album album)
         {
+            m_sourceListViewItem = customer;
             m_customer = customer.Source;
             m_customerItem = customer;
             m_album = album;
             m_settings = RegistrySettings.GetInstance();
+            m_orders = new List<Order>(0);
 
             InitializeComponent();
             Owner = owner;
@@ -65,6 +67,66 @@ namespace VkShopManager
             {
                 btnExportClickHandler(sender, new RoutedEventArgs());
             }
+            if (keyEventArgs.Key == Key.Insert)
+            {
+                btnAddProductToOrder(sender, new RoutedEventArgs());
+            }
+        }
+
+        private void AddProductsToOrderHandler(List<Product> products)
+        {
+            var prodsRepo = Core.Repositories.DbManger.GetInstance().GetProductRepository();
+            var ordersRepo = Core.Repositories.DbManger.GetInstance().GetOrderRepository();
+
+            foreach (Product product in products)
+            {
+                // если товар из другого альбома, надо создать копию в текущем
+                var prodObj = product;
+                if (product.AlbumId != m_album.Id)
+                {
+                    prodObj = product.CopyToAlbum(m_album);
+                    try
+                    {
+                        prodsRepo.Add(prodObj);
+                    }
+                    catch (Exception exception)
+                    {
+                        //todo: log exception
+                        continue;
+                    }
+                }
+                // еще не забыть проверить, если этот товар уже есть в этом заказе
+                var savedOrder = m_orders.FirstOrDefault(order => order.ProductId == prodObj.Id);
+                if (savedOrder == null)
+                {
+                    savedOrder = new Order
+                        {
+                            Amount = 1,
+                            ProductId = prodObj.Id,
+                            InitialVkCommentId = 0,
+                            Date = DateTime.Now,
+                            CustomerId = m_customer.Id,
+                            Comment = ""
+                        };
+                    try
+                    {
+                        ordersRepo.Add(savedOrder);
+                        m_orders.Add(savedOrder);
+                    }
+                    catch (Exception exception)
+                    {
+                        //todo: log exception
+                        continue;
+                    }
+                }
+                else
+                {
+                    //todo: handle case where appended product is in list
+                    // skip ???
+                }
+            }
+
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(FillOrdersTable));
         }
 
         private void FillOrdersTable()
@@ -75,24 +137,14 @@ namespace VkShopManager
             bg.DoWork += (sender, args) =>
                 {
                     var orderRepo = Core.Repositories.DbManger.GetInstance().GetOrderRepository();
-                    var prodRepo = Core.Repositories.DbManger.GetInstance().GetProductRepository();
-                    //var ratesRepo = Core.Repositories.DbManger.GetInstance().GetRatesRepository();
 
                     if (m_customer.GetCommissionInfo() == null)
                         throw new BgWorkerException("Ошибка. Не удалось получить ставку пользователя.");
-//                    try
-//                    {
-//                        m_comission = ratesRepo.GetById(m_customer.AccountTypeId);
-//                    }
-//                    catch (Exception)
-//                    {
-//                        throw new BgWorkerException("Ошибка. Не удалось получить ставку пользователя.");
-//                    }
 
-                    List<Order> orders;
                     try
                     {
-                        orders = orderRepo.GetOrdersForCustomerFromAlbum(m_customer, m_album);
+                        m_orders.Clear();
+                        m_orders.AddRange(orderRepo.GetOrdersForCustomerFromAlbum(m_customer, m_album));
                     }
                     catch(Exception)
                     {
@@ -102,13 +154,13 @@ namespace VkShopManager
 
                     bool empty = m_settings.ShowEmptyPositions;
                     bool partial = m_settings.ShowPartialPositions;
-                    foreach (var order in orders)
+                    foreach (var order in m_orders)
                     {
                         Product p;
                         long totalOrdered;
                         try
                         {
-                            p = prodRepo.GetById(order.ProductId);
+                            p = order.GetOrderedProduct();
                             if (p == null)
                             {
                                 continue;
@@ -122,10 +174,9 @@ namespace VkShopManager
                             throw new BgWorkerException("Ошибка БД.");
                         }
                         
-                        //var item = new OrderListViewItem(order, p, m_comission)
-                        var item = new OrderListViewItem(order, p, m_customer.GetCommissionInfo())
+                        var item = new OrderListViewItem(order, m_customer.GetCommissionInfo())
                             {
-                                Status = totalOrdered < p.MinAmount ? "" : "OK"
+                                Status = (order.Amount > 0) && (totalOrdered >= p.MinAmount) ? "OK" : ""
                             };
                         list.Add(item);
                     }
@@ -133,6 +184,7 @@ namespace VkShopManager
                     list.Sort((i1, i2) => String.Compare(i1.Title, i2.Title, StringComparison.CurrentCultureIgnoreCase));
                     args.Result = list;
                 };
+
             bg.RunWorkerCompleted += (sender, args) =>
                 {
                     lvOrderItems.Items.Clear();
@@ -153,7 +205,7 @@ namespace VkShopManager
                         lvOrderItems.Items.Add(lvi);
                     }
 
-                    ShowOrderStatistics();
+                    UpdateOrderStatistics();
                 };
             bg.RunWorkerAsync();
         }
@@ -162,25 +214,29 @@ namespace VkShopManager
         {
             if (String.Compare(propertyChangedEventArgs.PropertyName, "Amount", true) == 0)
             {
-                ShowOrderStatistics();
+                UpdateOrderStatistics();
+                m_sourceListViewItem.CleanSum = m_totalClean;
             }
         }
 
-        private void ShowOrderStatistics()
+        private void UpdateOrderStatistics()
         {
-            decimal totalComission = 0;
-            decimal totalClean = 0;
-            decimal totalSum = 0;
-            for (int i = 0; i < lvOrderItems.Items.Count; i++)
+            m_totalComission = 0;
+            m_totalClean = 0;
+            m_totalSum = 0;
+
+            foreach (object item in lvOrderItems.Items)
             {
-                var lvi = lvOrderItems.Items[i] as OrderListViewItem;
-                totalComission += lvi.Comission;
-                totalClean += lvi.Sum;
-                totalSum += lvi.FinalSum;
+                var lvi = item as OrderListViewItem;
+                if (lvi == null) continue;
+
+                m_totalComission += lvi.Comission;
+                m_totalClean += lvi.Sum;
+                m_totalSum += lvi.FinalSum;
             }
 
-            tbTotal.Text = String.Format("Сумма: {0:C2} | Комиссия: {1:C2} | Итог: {2:C0} | Оплата: {3:C0}", totalClean,
-                                         totalComission, totalSum, m_customerItem.Payment);
+            tbTotal.Text = String.Format("Сумма: {0:C2} | Комиссия: {1:C2} | Итог: {2:C0} | Оплата: {3:C0}", m_totalClean,
+                                         m_totalComission, m_totalSum, m_customerItem.Payment);
         }
 
         private void btnEditCustomer_Click(object sender, RoutedEventArgs e)
@@ -198,19 +254,10 @@ namespace VkShopManager
             var lvi = lvOrderItems.SelectedItem as OrderListViewItem;
             if (lvi == null) return;
 
-            var f = new ChangeAmountWindow(this, lvi.SourceOrder);
+            var f = new ProductCustomersView(this, lvi.SourceProduct);
             f.ShowDialog();
-            if (f.GetResult() == ChangeAmountWindow.Result.Changed)
-            {
-                m_result = Result.Changed;
-                FillOrdersTable();
-            }
+            FillOrdersTable();
         }
-
-//        public Result GetResult()
-//        {
-//            return m_result;
-//        }
 
         private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
         {
@@ -220,9 +267,9 @@ namespace VkShopManager
             if (lvi == null)
                 return;
 
-            var f = new ProductCustomersView(this, lvi.SourceProduct);
-            f.ShowDialog();
-            FillOrdersTable();
+            var caw = new ChangeAmountWindow(this, lvi.SourceOrder);
+            caw.ShowDialog();
+
         }
 
         private void btnExportClickHandler(object sender, RoutedEventArgs e)
@@ -290,6 +337,7 @@ namespace VkShopManager
             {
                 repo.Add(payment);
                 m_customerItem.Payment += payment.Amount;
+                UpdateOrderStatistics();
             }
             catch (Exception exception)
             {
@@ -297,5 +345,14 @@ namespace VkShopManager
                 return;
             }
         }
+
+        private void btnAddProductToOrder(object sender, RoutedEventArgs e)
+        {
+            var psw = new ProductSelectionWindow(this, m_album);
+            psw.OnAddProductsToOrder += AddProductsToOrderHandler;
+            psw.ShowDialog();
+        }
+
+        
     }
 }

@@ -54,7 +54,6 @@ namespace VkShopManager
             node.Header = headerContainer;
             return node;
         }
-
         private void SetStatus(string msg = "")
         {
             if (!AppStatusText.Dispatcher.CheckAccess())
@@ -117,47 +116,14 @@ namespace VkShopManager
                     {
                         // по этому коду найдены продукты, найдем продукт из текущего альбома
                         productInfo = products.FirstOrDefault(product => product.AlbumId == album.Id);
+
                         if (productInfo == null)
                         {
-                            // продукты с таким кодом есть, но они не в этом альбоме -> скопируем
-                            var p = new Product
-                            {
-                                AlbumId = album.Id,
-                                GenericUrl = products[0].GenericUrl,
-                                ImageFile = products[0].ImageFile,
-                                MinAmount = products[0].MinAmount,
-                                Price = products[0].Price,
-                                Title = products[0].Title,
-                                VkId = products[0].VkId
-                            };
+                            // продукты с таким кодом есть, но они не в этом альбоме -> скопируем любую (первую) запись
+                            var p = products[0].CopyToAlbum(album);
                             prodsRepo.Add(p);
                             productInfo = p;
                             
-                            // var ordersToTranslate = new List<Order>();
-//                            foreach (var product in products)
-//                            {
-//                                var orders = ordersRepo.GetOrdersForProduct(product);
-//                                foreach (var order in orders)
-//                                {
-//                                    try
-//                                    {
-//                                        ordersRepo.Add(new Order
-//                                            {
-//                                                Amount = order.Amount,
-//                                                Comment = order.Comment,
-//                                                CustomerId = order.CustomerId,
-//                                                Date = order.Date,
-//                                                InitialVkCommentId = order.InitialVkCommentId,
-//                                                ProductId = productInfo.Id
-//                                            });
-//                                    }
-//                                    catch (Exception exception)
-//                                    {
-//                                        m_logger.ErrorException(exception);
-//                                    }
-//                                }
-//                            }
-
                             m_logger.DebugFormat("Создан дубликат продукта '{0}' с ID={1}", p.Title, p.Id);
                         }
                     }
@@ -176,6 +142,7 @@ namespace VkShopManager
                     {
                         AlbumId = album.Id,
                         VkId = vkPhotos[n].Id,
+                        MinAmount = 1
                     };
 
                     #region если есть url к изображению, надо его закачать
@@ -262,8 +229,8 @@ namespace VkShopManager
                     {
                         ParsingDate = DateTime.Now,
                         VkId = vkComment.Id,
+                        ProductId = productInfo.Id
                     };
-                    parsedComment.SetUniqueKey(album.Id, vkPhotos[n].Id);
 
                     try
                     {
@@ -273,7 +240,7 @@ namespace VkShopManager
                     catch (Exception exception)
                     {
                         m_logger.ErrorException(exception);
-                        throw new BgWorkerException("Ошибка: База данных недоступна!");
+                        throw new BgWorkerException("Ошибка: Не удалось получить данные из БД.");
                     }
 
                     // поиск юзера оставившего этот комментарий
@@ -358,9 +325,8 @@ namespace VkShopManager
                         }
                     }
                     msg = msg.Replace(" ", "");
-                    if (msg.Length > 0)
+                    if (msg.Length > 0) // если чтото осталось от сообщения
                     {
-                        // если чтото осталось от сообщения
                         if (msg[0] == '+')
                         {
                             // добавляем чтото к заказу
@@ -373,6 +339,7 @@ namespace VkShopManager
                                 }
                                 msg = msg.Replace(" ", "");
                             }
+
                             if (msg.Length > 0)
                             {
                                 try
@@ -466,7 +433,9 @@ namespace VkShopManager
                             else
                             {
                                 storedOrder.Amount += orderObj.Amount;
-                                storedOrder.Comment += String.Format("; {0}", orderObj.Comment);
+                                if(!String.IsNullOrEmpty(orderObj.Comment)) 
+                                    storedOrder.Comment += String.Format("; {0}", orderObj.Comment);
+
                                 try
                                 {
                                     ordersRepo.Update(storedOrder);
@@ -576,13 +545,11 @@ namespace VkShopManager
                 }
             }
         }
-
         private void cmdOpenCustomrsList_OnClick(object sender, RoutedEventArgs e)
         {
             var f = new CustomersSelectionWindow(this);
             f.ShowDialog();
         }
-
         private void cmdPrintDeliveryListClickEventHandler(object sender, RoutedEventArgs e)
         {
             if (SelectedAlbum == null)
@@ -686,6 +653,38 @@ namespace VkShopManager
 
             m_waitingWindow = new WaitingWindow(this);
             m_waitingWindow.ShowDialog();
+        }
+
+        private void cmdCopyProductToAlbum_OnClick(object sender, RoutedEventArgs e)
+        {
+            var selectedProd = lvDetails.SelectedItem as ProductListViewItem;
+            if (selectedProd == null) return;
+
+            var dlg = new AlbumSelectionWindow(this);
+            dlg.ShowDialog();
+
+            if (dlg.GetSelectedAlbum() == null)
+            {
+                this.ShowError("Необходимо выбрать альбом.");
+                return;
+            }
+            var dstAlbum = dlg.GetSelectedAlbum();
+
+            if (
+                !this.ShowQuestion(String.Format("Скопировать товар в альбом '{0}'?",
+                                                 dstAlbum.GetCleanTitle()))) return;
+
+            var newProductObj = selectedProd.Source.CopyToAlbum(dstAlbum);
+            var prodRepo = DbManger.GetInstance().GetProductRepository();
+            try
+            {
+                prodRepo.Add(newProductObj);
+            }
+            catch (Exception exception)
+            {
+                m_logger.ErrorException(exception);
+                this.ShowError("Ошибка: Не удалось сохранить объект в БД");
+            }
         }
     }
 }

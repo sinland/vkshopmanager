@@ -64,6 +64,7 @@ namespace VkShopManager
                 m_order.Amount = oldValue;
                 return;
             }
+
             var db = Core.Repositories.DbManger.GetInstance();
             var repo = db.GetOrderRepository();
             try
@@ -102,6 +103,7 @@ namespace VkShopManager
                 this.ShowError("Укажите корректное значение количества!");
                 return;
             }
+
             amount += 1;
             textBox1.Text = amount.ToString();
         }
