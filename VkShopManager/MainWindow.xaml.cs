@@ -141,6 +141,10 @@ namespace VkShopManager
                 var customItem = lvDetails.SelectedItem as CustomListViewItem;
                 if(customItem != null) ShowDialogForListViewItem(customItem);
             }
+            if (keyEventArgs.Key == Key.Insert && m_selectedView == ServiceTreeNodes.AlbumProducts)
+            {
+                cmdAlbumAddProduct_OnClick(sender, new RoutedEventArgs());
+            }
         }
 
         private void FillAlbumsListAsync()
@@ -1255,7 +1259,7 @@ namespace VkShopManager
 
         private void btnOpenReportsFolder_Click(object sender, RoutedEventArgs e)
         {
-            new Process()
+            new Process
                 {
                     StartInfo =
                         {
@@ -1264,6 +1268,41 @@ namespace VkShopManager
                         }
                 }.Start();
 
+        }
+
+        private void CmdFileAddAlbum_OnClick(object sender, RoutedEventArgs e)
+        {
+            Album a = new Album()
+                {
+                    CreationDate = DateTime.Now,
+                    VkId = 0,
+                    ThumbImg = "",
+                    Title = "",
+                };
+            AddAlbumWindow w = new AddAlbumWindow(a);
+            var res = w.ShowDialog();
+            if (res.HasValue && res.Value)
+            {
+                var repo = DbManger.GetInstance().GetAlbumsRepository();
+                try
+                {
+                    repo.Add(a);
+                }
+                catch (Exception exception)
+                {
+                    m_logger.ErrorException(exception);
+                    this.ShowError("Не удалось добавить альбом. " + String.Format("({0}) {1}", exception.GetType().Name, exception.Message));
+                    return;
+                }
+
+                FillAlbumsListAsync();
+            }
+
+        }
+
+        private void cmdAlbumDeleteProduct_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

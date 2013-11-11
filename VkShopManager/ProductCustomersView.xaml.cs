@@ -170,9 +170,19 @@ namespace VkShopManager
                 var oldAmount = lviObj.SourceOrderInfo.Amount;
                 var f = new ChangeAmountWindow(this, lviObj.SourceOrderInfo);
                 f.ShowDialog();
-
-                if (oldAmount != lviObj.SourceOrderInfo.Amount)
+                if (f.GetResult() == ChangeAmountWindow.Result.Changed)
                 {
+                    // save changes
+                    var db = Core.Repositories.DbManger.GetInstance();
+                    var repo = db.GetOrderRepository();
+                    try
+                    {
+                        repo.Update(lviObj.SourceOrderInfo);
+                    }
+                    catch (Exception exception)
+                    {
+                        this.ShowError(String.Format("Ошибка: Не удалось сохранить изменения. ({0})", exception.GetType().Name));
+                    }
                     m_lvi.OrderedAmount += (lviObj.SourceOrderInfo.Amount - oldAmount);
                 }
             }
@@ -185,21 +195,30 @@ namespace VkShopManager
             var selectedCustomer = f.GetSelectedCustomer();
             if (selectedCustomer == null)
             {
-                this.ShowError("Необходимо выбрать минимум одного покупателя из списка.");
+                //this.ShowError("Необходимо выбрать минимум одного покупателя из списка.");
                 return;
             }
-
+            var order = new Order
+                        {
+                            Amount = 0,
+                            CustomerId = selectedCustomer.Id,
+                            Date = DateTime.Now,
+                            InitialVkCommentId = 0,
+                            ProductId = m_product.Id,
+                            Comment = ""
+                        };
+            var caw = new ChangeAmountWindow(this, order);
+            caw.ShowDialog();
+            
             m_bgworker = new BackgroundWorker();
             m_bgworker.DoWork += (o, args) =>
                 {
-                    var customer = args.Argument as Customer;
+                    var ord = args.Argument as Order;
                     var ordersRepo = Core.Repositories.DbManger.GetInstance().GetOrderRepository();
-
-
                     try
                     {
                         var allProductOrders = ordersRepo.GetOrdersForProduct(m_product);
-                        if (allProductOrders.Any(productOrder => productOrder.CustomerId == customer.Id))
+                        if (allProductOrders.Any(productOrder => productOrder.CustomerId == ord.CustomerId))
                         {
                             throw new BgWorkerException("Указанный покупатель уже заказывал данный товар!");
                         }
@@ -212,16 +231,6 @@ namespace VkShopManager
                     {
                         throw new BgWorkerException("Не удалось получить данные из БД");
                     }
-
-                    var order = new Order
-                        {
-                            Amount = 0,
-                            CustomerId = customer.Id,
-                            Date = DateTime.Now,
-                            InitialVkCommentId = 0,
-                            ProductId = m_product.Id,
-                            Comment = ""
-                        };
                     try
                     {
                         ordersRepo.Add(order);
@@ -240,11 +249,12 @@ namespace VkShopManager
                         this.ShowError(args.Error.Message);
                         return;
                     }
-
-                    lvOrderItems.Items.Add((ProductCustomerListViewItem) args.Result);
+                    var item = (ProductCustomerListViewItem) args.Result;
+                    m_lvi.OrderedAmount += item.SourceOrderInfo.Amount;
+                    lvOrderItems.Items.Add(item);
                 };
 
-            m_bgworker.RunWorkerAsync(selectedCustomer);
+            m_bgworker.RunWorkerAsync(order);
         }
 
         private void btnViewCommentsOnProductClick(object sender, RoutedEventArgs e)

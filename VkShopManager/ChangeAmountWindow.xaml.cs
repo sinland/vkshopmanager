@@ -49,6 +49,18 @@ namespace VkShopManager
             {
                 Close();
             }
+            else if (keyEventArgs.Key == Key.Up)
+            {
+                BtnUp_OnClick(sender, new RoutedEventArgs());
+            }
+            else if (keyEventArgs.Key == Key.Down)
+            {
+                BtnDown_OnClick(sender, new RoutedEventArgs());
+            }
+            else if (keyEventArgs.Key == Key.Enter)
+            {
+                button1_Click(sender, new RoutedEventArgs());
+            }
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -65,17 +77,17 @@ namespace VkShopManager
                 return;
             }
 
-            var db = Core.Repositories.DbManger.GetInstance();
-            var repo = db.GetOrderRepository();
-            try
-            {
-                repo.Update(m_order);
-            }
-            catch (Exception exception)
-            {
-                m_logger.ErrorException(exception);
-                this.ShowError(String.Format("Ошибка: Не удалось сохранить изменения. ({0})", exception.GetType().Name));
-            }
+            //var db = Core.Repositories.DbManger.GetInstance();
+            //var repo = db.GetOrderRepository();
+            //try
+            //{
+            //    repo.Update(m_order);
+            //}
+            //catch (Exception exception)
+            //{
+            //    m_logger.ErrorException(exception);
+            //    this.ShowError(String.Format("Ошибка: Не удалось сохранить изменения. ({0})", exception.GetType().Name));
+            //}
 
             m_result = Result.Changed;
             Close();

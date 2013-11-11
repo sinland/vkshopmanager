@@ -165,6 +165,7 @@ namespace VkShopManager
                             {
                                 continue;
                             }
+
                             totalOrdered = orderRepo.GetProductTotalOrderedAmount(p);
                             if (!empty && (totalOrdered == 0 || order.Amount == 0)) continue;
                             if (!partial && totalOrdered < p.MinAmount) continue;
@@ -270,6 +271,20 @@ namespace VkShopManager
             var caw = new ChangeAmountWindow(this, lvi.SourceOrder);
             caw.ShowDialog();
 
+            if (caw.GetResult() == ChangeAmountWindow.Result.Changed)
+            {
+                // save changes
+                var db = Core.Repositories.DbManger.GetInstance();
+                var repo = db.GetOrderRepository();
+                try
+                {
+                    repo.Update(lvi.SourceOrder);
+                }
+                catch (Exception exception)
+                {
+                    this.ShowError(String.Format("Ошибка: Не удалось сохранить изменения. ({0})", exception.GetType().Name));
+                }
+            }
         }
 
         private void btnExportClickHandler(object sender, RoutedEventArgs e)

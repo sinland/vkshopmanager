@@ -34,7 +34,8 @@
             <MenuItem Header="Файл" Padding="10,4,5,5">
                 <MenuItem Header="Настройки" Name="cmdFileOpenSettings" Click="CmdFileOpenSettings_OnClick"  />
                 <MenuItem Header="Обновить список" Name="CmdFileGetStoredAlbums" Click="CmdFileGetStoredAlbums_OnClick"  />
-                <MenuItem Header="Загрузить альбомы" Name="CmdFileLoadAlbums" Click="CmdFileLoadAlbums_OnClick"  />
+                <!--<MenuItem Header="Загрузить альбомы" Name="CmdFileLoadAlbums" Click="CmdFileLoadAlbums_OnClick"  />-->
+                <MenuItem Header="Добавить закупку" Name="CmdFileAddAlbum" Click="CmdFileAddAlbum_OnClick"  />
                 <Separator />
                 <MenuItem Header="Доставка" Name="cmdOpenDeliveryList" Click="cmdOpenDeliveryList_OnClick"  />
                 <MenuItem Header="Список покупателей" Name="cmdOpenCustomrsList" Click="cmdOpenCustomrsList_OnClick"  />
@@ -44,6 +45,7 @@
             <MenuItem Header="Операции" Padding="10,4,5,5">
                 <MenuItem Header="Загрузить данные" Name="cmdAlbumLoadData" Click="cmdAlbumLoadData_OnClick"  />
                 <Separator/>
+                <MenuItem Header="Удалить товар" Name="cmdAlbumDeleteProduct" Click="cmdAlbumDeleteProduct_OnClick"  />
                 <MenuItem Header="Добавить товар" Name="cmdAlbumAddProduct" Click="cmdAlbumAddProduct_OnClick"  />
                 <MenuItem Header="Копировать товар в альбом..." Name="cmdCopyProductToAlbum" Click="cmdCopyProductToAlbum_OnClick"  />
                 <Separator/>

@@ -46,6 +46,8 @@ namespace VkShopManager
             tbPrice.Text = product.Price.ToString("F2");
             tbMinAmount.Text = product.MinAmount.ToString();
             tbCodeNumber.Text = product.CodeNumber;
+            tbCodeNumber.TextChanged += TbCodeNumberOnTextChanged;
+            tbCodeNumber.SelectionChanged += TbCodeNumberOnSelectionChanged;
 
             try
             {
@@ -65,6 +67,16 @@ namespace VkShopManager
                     new BitmapImage(new Uri("pack://application:,,,/Images/default.png"));
             }
 
+        }
+
+        private void TbCodeNumberOnSelectionChanged(object sender, RoutedEventArgs routedEventArgs)
+        {
+            tbCodeNumber.Text = tbCodeNumber.Text.Trim();
+        }
+
+        private void TbCodeNumberOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
+        {
+            
         }
 
         private void OnKeyUp(object sender, KeyEventArgs keyEventArgs)
@@ -97,7 +109,7 @@ namespace VkShopManager
             }
             if (tbCodeNumber.Text.Length > 0)
             {
-                m_product.CodeNumber = tbCodeNumber.Text;
+                m_product.CodeNumber = tbCodeNumber.Text.Trim();
             }
 
             m_product.GenericUrl = tbGenericUrl.Text;

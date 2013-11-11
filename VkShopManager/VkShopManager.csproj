@@ -67,6 +67,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddAlbumWindow.xaml.cs">
+      <DependentUpon>AddAlbumWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AlbumSelectionWindow.xaml.cs">
       <DependentUpon>AlbumSelectionWindow.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,10 @@
     <Compile Include="WaitingWindow.xaml.cs">
       <DependentUpon>WaitingWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddAlbumWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AlbumSelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
