@@ -1,0 +1,12 @@
+﻿<Window x:Class="VkShopManager.AddAlbumWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddAlbumWindow" Height="211" Width="488" ResizeMode="NoResize">
+    <Grid>
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="114,64,0,0" Name="tbAlbumName" VerticalAlignment="Top" Width="325" TabIndex="0" />
+        <Label Content="Новая закупка" Height="43" HorizontalAlignment="Left" Margin="162,15,0,0" Name="label1" VerticalAlignment="Top" FontSize="16" />
+        <Label Content="Наименование:" Height="28" HorizontalAlignment="Left" Margin="12,62,0,0" Name="label2" VerticalAlignment="Top" />
+        <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="283,111,0,0" Name="btnOk" VerticalAlignment="Top" Width="75" TabIndex="1" Click="btnOk_Click" />
+        <Button Content="Отмена" Height="23" HorizontalAlignment="Left" Margin="364,111,0,0" Name="btnCancel" VerticalAlignment="Top" Width="75" TabIndex="2" Click="btnCancel_Click" />
+    </Grid>
+</Window>

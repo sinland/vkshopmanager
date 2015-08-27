@@ -87,9 +87,6 @@ namespace VkShopManager
 
             Application.Current.Exit += ApplicationExitEventHandler;
             
-            cmdShowPartialPositions.IsChecked = m_settings.ShowPartialPositions;
-            cmdShowEmptyPositions.IsChecked = m_settings.ShowEmptyPositions;
-
             cbSearchFieldType.Items.Add(new ComboBoxItem()
                 {
                     Tag = TableSearchType.Title,
@@ -122,7 +119,8 @@ namespace VkShopManager
             ClearDetailsView();
             FillAlbumsListAsync();
         }
-        public void InitializeTemplates()
+
+        private void InitializeTemplates()
         {
             var templatesDir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                                                       "Templates");
@@ -480,19 +478,14 @@ namespace VkShopManager
                     }
                     var result = new List<ProductListViewItem>();
 
-                    bool showPartialPositions = m_settings.ShowPartialPositions;
-                    bool showEmptyPositions = m_settings.ShowEmptyPositions;
-
                     foreach (Product product in products)
                     {
                         var ordered = orders.Where(order => order.ProductId == product.Id).Sum(order => order.Amount);
-                        if (ordered == 0 && !showEmptyPositions) continue;
-                        if (ordered > 0 && ordered < product.MinAmount && !showPartialPositions) continue;
-
                         result.Add(new ProductListViewItem(product) {OrderedAmount = ordered});
                     }
 
                     result.Sort((a, b) => String.Compare(a.Title, b.Title, StringComparison.CurrentCultureIgnoreCase));
+
                     args.Result = result;
                 };
             bgw.RunWorkerCompleted += (sender, args) =>
@@ -755,9 +748,6 @@ namespace VkShopManager
                         
                         // создание объекта записи в таблице
                         var clvi = new CustomerListViewItem(custObj);// {OrderedItemsCount = 0};
-                        var showEmpty = RegistrySettings.GetInstance().ShowEmptyPositions;
-                        var showPartial = RegistrySettings.GetInstance().ShowPartialPositions;
-
                         foreach (Order order in ordersGroup)
                         {
                             Product productInfo = null;
@@ -770,9 +760,6 @@ namespace VkShopManager
                                 
                                 // посчитать сколько всего заказано этого товара
                                 totalProductOrders = orderRepository.GetProductTotalOrderedAmount(productInfo);
-                                
-                                if (totalProductOrders < productInfo.MinAmount && totalProductOrders > 0 && !showPartial) continue;
-                                if (order.Amount == 0 && !showEmpty) continue;
                             }
                             catch (Exception exception)
                             {
@@ -782,16 +769,7 @@ namespace VkShopManager
                             
                             // добавляем к сумме заказа стоимость очередной позиции (кол-во на стоимость единицы)
                             clvi.CleanSum += order.Amount * productInfo.Price;
-                            //clvi.OrderedItemsCount += 1;
-
-                            if (totalProductOrders < productInfo.MinAmount && totalProductOrders > 0)
-                            {
-                                clvi.HasPartialPosition = true;
-                            }
-                            if (totalProductOrders == 0 && showEmpty)
-                            {
-                                clvi.HasPartialPosition = true;
-                            }
+                            clvi.HasPartialPosition = (totalProductOrders < productInfo.MinAmount && totalProductOrders > 0) || (totalProductOrders == 0);
                         }
                         
                         if (clvi.CleanSum == 0) continue;
@@ -830,9 +808,12 @@ namespace VkShopManager
                     }
 
                     var list = args.Result as List<CustomerListViewItem>;
-                    foreach (var clvi in list)
+                    if (list != null)
                     {
-                        lvDetails.Items.Add(clvi);
+                        foreach (var clvi in list)
+                        {
+                            lvDetails.Items.Add(clvi);
+                        }
                     }
                 };
             lock (m_workersPool)
@@ -1061,30 +1042,6 @@ namespace VkShopManager
             FillAlbumsListAsync();
         }
 
-        private void cmdShowHalfPositions_OnClick(object sender, RoutedEventArgs e)
-        {
-            m_settings.ShowPartialPositions = cmdShowPartialPositions.IsChecked;
-            if (m_selectedView == ServiceTreeNodes.AlbumProducts)
-            {
-                ShowAlbumProductsDetails(SelectedAlbum);
-            }
-            else if (m_selectedView == ServiceTreeNodes.AlbumCustomers)
-            {
-                ShowAlbumCutomersDetails(SelectedAlbum);
-            }
-        }
-        private void cmdShowEmptyPositions_OnClick(object sender, RoutedEventArgs e)
-        {
-            m_settings.ShowEmptyPositions = cmdShowEmptyPositions.IsChecked;
-            if (m_selectedView == ServiceTreeNodes.AlbumProducts)
-            {
-                ShowAlbumProductsDetails(SelectedAlbum);
-            }
-            else if (m_selectedView == ServiceTreeNodes.AlbumCustomers)
-            {
-                ShowAlbumCutomersDetails(SelectedAlbum);
-            }
-        }
         private void btnExportCurrent_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedAlbum == null || m_selectedView == ServiceTreeNodes.None)
@@ -1236,6 +1193,7 @@ namespace VkShopManager
                 this.ShowError("Необходимо выбрать альбом.");
                 return;
             }
+
             var p = new Product
                 {
                     AlbumId = SelectedAlbum.Id,
@@ -1272,37 +1230,38 @@ namespace VkShopManager
 
         private void CmdFileAddAlbum_OnClick(object sender, RoutedEventArgs e)
         {
-            Album a = new Album()
+            var a = new Album
                 {
                     CreationDate = DateTime.Now,
                     VkId = 0,
                     ThumbImg = "",
                     Title = "",
                 };
-            AddAlbumWindow w = new AddAlbumWindow(a);
+            var w = new AddAlbumWindow(a);
             var res = w.ShowDialog();
-            if (res.HasValue && res.Value)
-            {
-                var repo = DbManger.GetInstance().GetAlbumsRepository();
-                try
-                {
-                    repo.Add(a);
-                }
-                catch (Exception exception)
-                {
-                    m_logger.ErrorException(exception);
-                    this.ShowError("Не удалось добавить альбом. " + String.Format("({0}) {1}", exception.GetType().Name, exception.Message));
-                    return;
-                }
+            if (!res.HasValue || !res.Value) return;
 
-                FillAlbumsListAsync();
+            var repo = DbManger.GetInstance().GetAlbumsRepository();
+            try
+            {
+                repo.Add(a);
+            }
+            catch (Exception exception)
+            {
+                m_logger.ErrorException(exception);
+                this.ShowError("Не удалось добавить альбом. " + String.Format("({0}) {1}", exception.GetType().Name, exception.Message));
+                return;
             }
 
+            FillAlbumsListAsync();
         }
 
         private void cmdAlbumDeleteProduct_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            var item = lvDetails.SelectedItems.Count > 0 ? lvDetails.SelectedItems[0] as ProductListViewItem : null;
+            if (item == null) return;
+
+            if(this.ShowQuestion(String.Format("Удалить '{0}' из закупки?"))) item.Source.
         }
     }
 }

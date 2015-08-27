@@ -152,8 +152,6 @@ namespace VkShopManager
                     }
                     var list = new List<OrderListViewItem>();
 
-                    bool empty = m_settings.ShowEmptyPositions;
-                    bool partial = m_settings.ShowPartialPositions;
                     foreach (var order in m_orders)
                     {
                         Product p;
@@ -167,8 +165,6 @@ namespace VkShopManager
                             }
 
                             totalOrdered = orderRepo.GetProductTotalOrderedAmount(p);
-                            if (!empty && (totalOrdered == 0 || order.Amount == 0)) continue;
-                            if (!partial && totalOrdered < p.MinAmount) continue;
                         }
                         catch (Exception)
                         {

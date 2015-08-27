@@ -48,9 +48,6 @@ namespace VkShopManager
             boxFormats.Items.Add(new WordExportFormatter(m_album));
             boxFormats.Items.Add(new PlainTextExportFormatter(m_album));
 
-            cbIncludeEmptyPositions.IsChecked = m_settings.ShowEmptyPositions;
-            cbIncludePartialPositions.IsChecked = m_settings.ShowPartialPositions;
-
             KeyUp += OnKeyUp;
 
             boxFormats.SelectedIndex = 0;

@@ -1,0 +1,19 @@
+﻿<Window x:Class="VkShopManager.SimilarProductsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Список" Height="300" Width="787.096">
+    <Grid>
+        <ListView x:Name="lvSimilars" Margin="10,10,10,45">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="100" Header="Артикул" DisplayMemberBinding="{Binding Mode=OneWay, Path=CodeNumber}"/>
+                    <GridViewColumn Width="400" Header="Наименование" DisplayMemberBinding="{Binding Mode=OneWay, Path=Title}"/>
+                    <GridViewColumn Width="100" Header="Цена" DisplayMemberBinding="{Binding Mode=OneWay, Path=Price}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Пропустить" HorizontalAlignment="Right" Margin="0,0,15,10" VerticalAlignment="Bottom" Width="110" Click="btnSkipClick"/>
+        <Button Content="Использовать" Margin="15,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="110" Click="btnAcceptClick"/>
+
+    </Grid>
+</Window>

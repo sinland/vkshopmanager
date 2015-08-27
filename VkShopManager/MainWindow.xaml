@@ -45,10 +45,8 @@
                 <MenuItem Header="Загрузить данные" Name="cmdAlbumLoadData" Click="cmdAlbumLoadData_OnClick"  />
                 <Separator/>
                 <MenuItem Header="Добавить товар" Name="cmdAlbumAddProduct" Click="cmdAlbumAddProduct_OnClick"  />
+                <MenuItem Header="Удалить товар" Click="cmdAlbumDeleteProduct_OnClick"  />
                 <MenuItem Header="Копировать товар в альбом..." Name="cmdCopyProductToAlbum" Click="cmdCopyProductToAlbum_OnClick"  />
-                <Separator/>
-                <MenuItem Header="Отображать неполные позиции" Name="cmdShowPartialPositions" Click="cmdShowHalfPositions_OnClick" IsCheckable="True"  />
-                <MenuItem Header="Отображать пустые позиции" Name="cmdShowEmptyPositions" Click="cmdShowEmptyPositions_OnClick" IsCheckable="True"  />
                 <Separator/>
                 <MenuItem Header="Документы" >
                     <MenuItem Header="Лист доставки" Click="cmdPrintDeliveryListClickEventHandler"/>

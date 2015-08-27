@@ -28,7 +28,7 @@ namespace VkShopManager
             Saved,
         }
 
-        private readonly Product m_product;
+        private Product m_product;
         private Result m_result = Result.None;
 
         public ProductEditWindow(Window owner, Product product)
@@ -137,9 +137,33 @@ namespace VkShopManager
             try
             {
                 var db = DbManger.GetInstance().GetProductRepository();
+
                 if (m_product.Id == Int32.MinValue)
                 {
-                    db.Add(m_product);
+                    Product selectedFromExisting = null;
+                    if (m_product.CodeNumber.Length > 0)
+                    {
+                        // check for code number...
+                        var similars = db.GetByCodeNumber(m_product.CodeNumber);
+                        if (similars != null && similars.Count > 0)
+                        {
+                            // there are some products with such code number
+                            var w = new SimilarProductsWindow(similars);
+                            var wres = w.ShowDialog();
+                            if (wres.HasValue && wres.Value)
+                            {
+                                selectedFromExisting = w.GetSelectedProduct();
+                            }
+                        }
+                    }
+                    if (selectedFromExisting == null)
+                    {
+                        db.Add(m_product);
+                    }
+                    else
+                    {
+                        m_product = selectedFromExisting;
+                    }
                 }
                 else db.Update(m_product);
             }
@@ -156,7 +180,7 @@ namespace VkShopManager
         private void btnCreateCode_Click(object sender, RoutedEventArgs e)
         {
             var generator = new CodeNumberGenerator();
-            var repo = Core.Repositories.DbManger.GetInstance().GetProductRepository();
+            var repo = DbManger.GetInstance().GetProductRepository();
             var setting = generator.ConvertToType(RegistrySettings.GetInstance().SelectedCodeNumberGenerator);
             var prefix = RegistrySettings.GetInstance().CodeNumberAlphaPrefix;
             var length = RegistrySettings.GetInstance().CodeNumberNumericLength;
